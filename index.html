@@ -2,222 +2,363 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>VIP CONFIG</title>
-<style>
-    body {
-        background: #0d0d0d;
-        font-family: Arial, sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-    }
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    .container {
-        width: 300px;
-        border: 2px solid yellow;
-        padding: 15px;
-        border-radius: 10px;
-        color: white;
-        box-shadow: 0 0 15px yellow;
-    }
+<title>Para mi amor 💖</title>
 
-    h1 {
-        text-align: center;
-        color: gold;
-        margin-bottom: 5px;
-    }
-
-    .sub {
-        text-align: center;
-        font-size: 12px;
-        color: red;
-        margin-bottom: 15px;
-    }
-
-    label {
-        font-size: 12px;
-        color: #ccc;
-    }
-
-    select, input {
-        width: 100%;
-        padding: 8px;
-        margin: 5px 0 10px;
-        border: 1px solid red;
-        background: #111;
-        color: white;
-        border-radius: 5px;
-    }
-
-    .buttons {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 10px;
-    }
-
-    .btn {
-        flex: 1;
-        margin: 3px;
-        padding: 10px;
-        text-align: center;
-        border: 1px solid red;
-        cursor: pointer;
-        border-radius: 5px;
-    }
-
-    .active {
-        background: yellow;
-        color: black;
-        font-weight: bold;
-    }
-
-    .generate {
-        margin-top: 10px;
-        padding: 10px;
-        text-align: center;
-        border: 2px solid yellow;
-        cursor: pointer;
-        border-radius: 5px;
-        background: #111;
-    }
-
-    .result {
-        margin-top: 10px;
-        text-align: center;
-        font-size: 14px;
-        color: cyan;
-    }
-</style>
-</head>
-<body>
-
-<div class="container">
-    <h1>👑 VIP CONFIG</h1>
-    <div class="sub">SYSTEMWOODS PREMIUM • SENSIBILIDAD 0-200</div>
-
-    <label>Selecciona la marca</label>
-    <select>
-        <option>-- Seleccionar Sistema --</option>
-        <option>Samsung</option>
-        <option>Xiaomi</option>
-        <option>Motorola</option>
-        <option>Tecno</option>
-    </select>
-
-    <label>Modelo</label>
-    <input type="text" placeholder="Escribe tu modelo">
-
-    <label>Calibración de mira</label>
-    <div class="buttons">
-        <div class="btn active" onclick="selectBtn(this, 'mira')">ALTA</div>
-        <div class="btn" onclick="selectBtn(this, 'mira')">MEDIA</div>
-        <div class="btn" onclick="selectBtn(this, 'mira')">BAJA</div>
-    </div>
-
-    <div class="buttons">
-        <div class="btn" onclick="selectBtn(this, 'dpi')">CON DPI</div>
-        <div class="btn active" onclick="selectBtn(this, 'dpi')">SIN DPI</div>
-    </div>
-
-    <div class="generate" onclick="generar()">GENERAR SENSI</div>
-
-    <div class="result" id="resultado"></div>
-</div>
+<script src="https://cdn.tailwindcss.com"></script>
 
 <script>
-function selectBtn(element, group) {
-    let parent = element.parentElement;
-    let buttons = parent.querySelectorAll('.btn');
+tailwind.config = {
+    theme: {
+        extend: {
+            colors: {
+                amor: '#ad1457',
+                rosa: '#ec407a',
+                rosaClaro: '#f8bbd0',
+                fondo: '#fff5f8',
+                oro: '#d4af37'
+            },
+            fontFamily: {
+                cursiva: ['"Dancing Script"', 'cursive'],
+                elegante: ['"Playfair Display"', 'serif'],
+                texto: ['Lato', 'sans-serif']
+            }
+        }
+    }
+}
+</script>
 
-    buttons.forEach(btn => btn.classList.remove('active'));
-    element.classList.add('active');
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+<style type="text/tailwindcss">
+@layer utilities {
+
+    .texto-sombra{
+        text-shadow:0 2px 4px rgba(0,0,0,.15);
+    }
+
+    .texto-justificado{
+        text-align:justify;
+    }
+
+    .pantalla-activa{
+        animation: aparecer .8s ease forwards;
+    }
+
+    .pantalla-desvaneciendose{
+        animation: desaparecer .8s ease forwards;
+    }
+
+    .opcion-activa{
+        background:#ec407a !important;
+        color:white !important;
+        transform:scale(1.05);
+        box-shadow:0 8px 20px rgba(236,64,122,.4);
+    }
+
+    .flor{
+        position:absolute;
+        pointer-events:none;
+        opacity:0;
+    }
+
+    .flor.animar{
+        animation: flor 1.2s ease forwards;
+    }
+
+    .corazon-flotante{
+        animation: flotar 4s ease-in-out infinite;
+    }
+
+    .corazon-flotante-retraso{
+        animation: flotar 4s ease-in-out 2s infinite;
+    }
 }
 
-function generar() {
-
-    let marca = document.querySelector("select").value.toLowerCase();
-    let modelo = document.querySelector("input").value.toLowerCase();
-
-    let mira = document.querySelectorAll('.buttons')[0].querySelector('.active').innerText;
-    let dpi = document.querySelectorAll('.buttons')[1].querySelector('.active').innerText;
-
-    let base = 100;
-
-    // 🔥 Ajuste por marca
-    if (marca.includes("samsung")) base = 120;
-    else if (marca.includes("xiaomi")) base = 110;
-    else if (marca.includes("motorola")) base = 105;
-    else if (marca.includes("tecno")) base = 115;
-
-    // 📱 Ajuste por modelo
-    if (modelo.includes("a") || modelo.includes("note") || modelo.includes("redmi")) base += 5;
-    if (modelo.includes("pro") || modelo.includes("plus")) base += 8;
-    if (modelo.includes("lite") || modelo.includes("go")) base -= 5;
-
-    // 🎯 Calibración de mira
-    if (mira === "ALTA") base += 30;
-    if (mira === "MEDIA") base += 10;
-    if (mira === "BAJA") base -= 10;
-
-    // ⚡ DPI
-    if (dpi === "CON DPI") base += 12;
-    if (dpi === "SIN DPI") base -= 5;
-
-    // 🎮 Generador con micro-ajustes
-    function rango(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
+@keyframes aparecer{
+    from{
+        opacity:0;
+        transform:scale(.95);
     }
-
-    function microAjuste(valor) {
-        return valor + Math.floor(Math.random() * 3) - 1;
+    to{
+        opacity:1;
+        transform:scale(1);
     }
-
-    let general = microAjuste(rango(base - 3, base + 3));
-    let redDot = microAjuste(rango(base + 8, base + 12));
-    let scope2x = microAjuste(rango(base - 5, base));
-    let scope4x = microAjuste(rango(base - 15, base - 8));
-    let sniper = microAjuste(rango(base - 35, base - 25));
-    let camara = microAjuste(rango(base + 12, base + 20));
-
-    // 🔒 Estabilidad (anti-retroceso simulado)
-    if (mira === "ALTA") {
-        redDot += 2;
-        scope2x += 1;
-    }
-
-    if (dpi === "CON DPI") {
-        general += 2;
-        camara += 2;
-    }
-
-    // 🧠 Normalización
-    function limitar(valor) {
-        return Math.max(0, Math.min(200, valor));
-    }
-
-    general = limitar(general);
-    redDot = limitar(redDot);
-    scope2x = limitar(scope2x);
-    scope4x = limitar(scope4x);
-    sniper = limitar(sniper);
-    camara = limitar(camara);
-
-    document.getElementById("resultado").innerHTML = `
-        <b>AJUSTES DE SENCI (ULTRA PRECISIÓN)</b><br><br>
-        📱 Dispositivo: ${marca.toUpperCase()} ${modelo} <br>
-        🎯 Modo: ${mira} <br>
-        ⚙️ DPI: ${dpi} <br><br>
-
-        GENERAL: ${general} <br>
-        MIRA DE PUNTO ROJO: ${redDot} <br>
-        MIRA 2X: ${scope2x} <br>
-        MIRA 4X: ${scope4x} <br>
-        MIRA FRANCOTIRADOR: ${sniper} <br>
-        BOTÓN DE CÁMARA 360°: ${camara}
-    `;
 }
+
+@keyframes desaparecer{
+    from{
+        opacity:1;
+    }
+    to{
+        opacity:0;
+        transform:scale(1.05);
+    }
+}
+
+@keyframes flotar{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-10px);
+    }
+}
+
+@keyframes flor{
+    0%{
+        opacity:1;
+        transform:scale(0) rotate(0deg);
+    }
+
+    100%{
+        opacity:0;
+        transform:scale(1.5) rotate(360deg);
+    }
+}
+</style>
+</head>
+
+<body class="min-h-screen overflow-hidden bg-gradient-to-br from-rosaClaro to-pink-100">
+
+<!-- PANTALLA INICIO -->
+<div id="pantallaInicio" class="fixed inset-0 flex flex-col items-center justify-center p-6 pantalla-activa z-50">
+
+    <div class="absolute top-10 left-10 text-7xl opacity-20 corazon-flotante">❤️</div>
+    <div class="absolute bottom-10 right-10 text-7xl opacity-20 corazon-flotante">💖</div>
+
+    <h1 class="font-cursiva text-6xl text-amor font-bold texto-sombra text-center mb-10 z-10">
+        Para el amor de mi vida
+    </h1>
+
+    <div class="space-y-5 w-full max-w-md z-10">
+
+        <button class="opcion-frase w-full py-5 px-6 bg-white rounded-2xl shadow-lg font-cursiva text-2xl text-amor transition">
+            Eres mi alegría cada día
+        </button>
+
+        <button class="opcion-frase w-full py-5 px-6 bg-white rounded-2xl shadow-lg font-cursiva text-2xl text-amor transition">
+            Mi corazón late por ti
+        </button>
+
+        <button class="opcion-frase w-full py-5 px-6 bg-white rounded-2xl shadow-lg font-cursiva text-2xl text-amor transition">
+            No hay nadie como tú
+        </button>
+
+        <div class="flex gap-4 mt-8">
+
+            <button id="btnAbrirCarta"
+            class="flex-1 py-4 bg-rosa text-white rounded-2xl shadow-lg font-cursiva text-xl hover:scale-105 transition">
+                Abrir Carta 💌
+            </button>
+
+            <button id="btnSalir"
+            class="flex-1 py-4 bg-white rounded-2xl shadow-lg font-cursiva text-xl text-amor transition">
+                Cerrar ❤️
+            </button>
+
+        </div>
+
+    </div>
+
+    <div id="contenedorFlores" class="fixed inset-0 pointer-events-none"></div>
+
+</div>
+
+
+<!-- CARTA -->
+<div id="carta" class="hidden min-h-screen items-center justify-center p-5">
+
+<div class="bg-fondo rounded-3xl shadow-2xl max-w-3xl w-full p-8 md:p-10 relative overflow-hidden">
+
+    <div id="tituloCarta"
+    class="opacity-0 translate-y-5 transition-all duration-700 text-center mb-8">
+
+        <h1 class="font-cursiva text-5xl text-amor font-bold texto-sombra">
+            Para ti, mi amor 💖
+        </h1>
+
+    </div>
+
+    <div id="contenidoCarta"
+    class="opacity-0 translate-y-5 transition-all duration-700 delay-200 space-y-5 text-gray-700 font-texto leading-relaxed">
+
+        <p class="texto-justificado">
+            Jamás imaginé que un simple mensaje de TikTok pudiera cambiarme la vida de una manera tan bonita. Entre tantos videos, tantas personas y tantas casualidades, apareciste tú… y desde ese momento todo empezó a sentirse diferente.
+        </p>
+
+        <p class="texto-justificado">
+            Me gusta pensar que el destino hizo lo suyo para cruzarnos, porque entre millones de personas terminé encontrando a alguien tan increíble como tú.
+        </p>
+
+        <div class="bg-rosaClaro/30 p-4 rounded-xl border-l-4 border-rosa text-amor italic">
+            Llegaste por una pantalla… pero terminaste quedándote en mi corazón ❤️
+        </div>
+
+        <p class="texto-justificado">
+            Eres esa persona que logra alegrarme incluso en los días difíciles. Tu sonrisa, tu forma de hablar y tu cariño tienen un efecto enorme en mí.
+        </p>
+
+        <p class="texto-justificado">
+            Me encanta escucharte, leerte y pasar tiempo contigo aunque sea a distancia. Porque contigo nunca se siente vacío.
+        </p>
+
+        <div class="bg-white/70 rounded-xl p-5 shadow-inner">
+
+            <p class="font-cursiva text-amor text-2xl text-center font-bold mb-4">
+                Lo que más amo de ti:
+            </p>
+
+            <div class="flex flex-wrap justify-center gap-3">
+
+                <span class="px-4 py-2 bg-rosa/10 text-amor rounded-full">
+                    Tu sonrisa 💖
+                </span>
+
+                <span class="px-4 py-2 bg-rosa/10 text-amor rounded-full">
+                    Tus mensajes 🥺
+                </span>
+
+                <span class="px-4 py-2 bg-rosa/10 text-amor rounded-full">
+                    Tu voz 🎶
+                </span>
+
+                <span class="px-4 py-2 bg-rosa/10 text-amor rounded-full">
+                    Tus ojitos ✨
+                </span>
+
+                <span class="px-4 py-2 bg-rosa/10 text-amor rounded-full">
+                    Todo de ti 💞
+                </span>
+
+            </div>
+
+        </div>
+
+        <p class="texto-justificado">
+            Gracias por aparecer en mi vida de una forma tan inesperada y aun así convertirte en alguien tan importante para mí.
+        </p>
+
+        <p class="texto-justificado">
+            Quiero seguir creando recuerdos contigo y seguir enamorándome de ti todos los días un poquito más ❤️
+        </p>
+
+    </div>
+
+    <div id="fraseFinal"
+    class="opacity-0 translate-y-5 transition-all duration-700 delay-500 text-center mt-10">
+
+        <p class="font-cursiva text-4xl text-amor font-bold animate-pulse">
+            Te amo hoy,<br>mañana y siempre ❤️
+        </p>
+
+    </div>
+
+</div>
+</div>
+
+
+<script>
+
+const pantallaInicio = document.getElementById('pantallaInicio');
+const carta = document.getElementById('carta');
+const btnAbrirCarta = document.getElementById('btnAbrirCarta');
+const btnSalir = document.getElementById('btnSalir');
+const opcionesFrase = document.querySelectorAll('.opcion-frase');
+const contenedorFlores = document.getElementById('contenedorFlores');
+
+const tituloCarta = document.getElementById('tituloCarta');
+const contenidoCarta = document.getElementById('contenidoCarta');
+const fraseFinal = document.getElementById('fraseFinal');
+
+opcionesFrase.forEach(boton => {
+
+    boton.addEventListener('click', function(e){
+
+        opcionesFrase.forEach(btn=>{
+            btn.classList.remove('opcion-activa');
+        });
+
+        this.classList.add('opcion-activa');
+
+        crearFlores(e.clientX, e.clientY);
+
+    });
+
+});
+
+btnAbrirCarta.addEventListener('click', ()=>{
+
+    pantallaInicio.classList.add('pantalla-desvaneciendose');
+
+    setTimeout(()=>{
+
+        pantallaInicio.style.display='none';
+
+        carta.style.display='flex';
+
+        setTimeout(()=>{
+
+            tituloCarta.classList.remove('opacity-0','translate-y-5');
+            contenidoCarta.classList.remove('opacity-0','translate-y-5');
+            fraseFinal.classList.remove('opacity-0','translate-y-5');
+
+        },200);
+
+    },800);
+
+});
+
+btnSalir.addEventListener('click', ()=>{
+
+    pantallaInicio.classList.add('pantalla-desvaneciendose');
+
+    setTimeout(()=>{
+
+        document.body.innerHTML=`
+        <div class="min-h-screen flex items-center justify-center bg-pink-100 text-center p-5">
+            <div>
+                <h1 class="text-6xl mb-5">💔</h1>
+                <p class="text-3xl text-pink-600 font-bold">
+                    Cerraste la carta 😭
+                </p>
+            </div>
+        </div>
+        `;
+
+    },800);
+
+});
+
+function crearFlores(x,y){
+
+    const emojis=['🌸','💖','🌷','🌺','💮'];
+
+    for(let i=0;i<10;i++){
+
+        const flor=document.createElement('div');
+
+        flor.className='flor animar';
+
+        flor.innerHTML=emojis[Math.floor(Math.random()*emojis.length)];
+
+        flor.style.left=(x + (Math.random()*120-60))+'px';
+
+        flor.style.top=(y + (Math.random()*120-60))+'px';
+
+        flor.style.fontSize=(Math.random()*20+20)+'px';
+
+        contenedorFlores.appendChild(flor);
+
+        setTimeout(()=>{
+            flor.remove();
+        },1200);
+
+    }
+
+}
+
 </script>
 
 </body>
