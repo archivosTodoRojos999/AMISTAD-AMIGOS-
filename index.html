@@ -1,365 +1,267 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Para mi amor 💖</title>
-
-<script src="https://cdn.tailwindcss.com"></script>
-
-<script>
-tailwind.config = {
-    theme: {
-        extend: {
-            colors: {
-                amor: '#ad1457',
-                rosa: '#ec407a',
-                rosaClaro: '#f8bbd0',
-                fondo: '#fff5f8',
-                oro: '#d4af37'
-            },
-            fontFamily: {
-                cursiva: ['"Dancing Script"', 'cursive'],
-                elegante: ['"Playfair Display"', 'serif'],
-                texto: ['Lato', 'sans-serif']
-            }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Cumpleaños Martín! 🎉</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-    }
-}
-</script>
 
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
 
-<style type="text/tailwindcss">
-@layer utilities {
+        /* Fondo conlujos suaves */
+        .glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+            animation: float 6s ease-in-out infinite;
+        }
+        .glow-1 { width: 300px; height: 300px; background: #ff6b6b; top: -50px; left: -50px; }
+        .glow-2 { width: 400px; height: 400px; background: #8e44ad; bottom: -100px; right: -50px; animation-delay: 2s; }
+        .glow-3 { width: 200px; height: 200px; background: #feca57; top: 40%; left: 40%; animation-delay: 4s; opacity: 0.6; }
 
-    .texto-sombra{
-        text-shadow:0 2px 4px rgba(0,0,0,.15);
-    }
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(20px, -20px); }
+        }
 
-    .texto-justificado{
-        text-align:justify;
-    }
+        /* Botón de Regalo */
+        #gift-container {
+            cursor: pointer;
+            z-index: 10;
+            text-align: center;
+            transition: transform 0.3s;
+            animation: popUp 0.8s ease-out;
+        }
 
-    .pantalla-activa{
-        animation: aparecer .8s ease forwards;
-    }
+        @keyframes popUp {
+            0% { transform: scale(0); opacity: 0; }
+            80% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
 
-    .pantalla-desvaneciendose{
-        animation: desaparecer .8s ease forwards;
-    }
+        .gift-btn {
+            font-size: 100px;
+            display: block;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+            transition: transform 0.2s;
+        }
 
-    .opcion-activa{
-        background:#ec407a !important;
-        color:white !important;
-        transform:scale(1.05);
-        box-shadow:0 8px 20px rgba(236,64,122,.4);
-    }
+        .gift-btn:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .gift-btn:active {
+            transform: scale(0.95);
+        }
 
-    .flor{
-        position:absolute;
-        pointer-events:none;
-        opacity:0;
-    }
+        .click-text {
+            color: white;
+            font-size: 1.2rem;
+            margin-top: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.8;
+            animation: pulse 2s infinite;
+        }
 
-    .flor.animar{
-        animation: flor 1.2s ease forwards;
-    }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
 
-    .corazon-flotante{
-        animation: flotar 4s ease-in-out infinite;
-    }
+        /* Tarjeta de Cumpleaños (Oculta al inicio) */
+        .card {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            color: white;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            z-index: 10;
+            opacity: 0;
+            transform: scale(0.8) translateY(50px);
+            pointer-events: none;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: none; /* Oculto completamente */
+        }
 
-    .corazon-flotante-retraso{
-        animation: flotar 4s ease-in-out 2s infinite;
-    }
-}
+        .card.show {
+            display: block;
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            pointer-events: all;
+        }
 
-@keyframes aparecer{
-    from{
-        opacity:0;
-        transform:scale(.95);
-    }
-    to{
-        opacity:1;
-        transform:scale(1);
-    }
-}
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #ffeaa7, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 600;
+        }
 
-@keyframes desaparecer{
-    from{
-        opacity:1;
-    }
-    to{
-        opacity:0;
-        transform:scale(1.05);
-    }
-}
+        .name {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5em;
+            color: #fff;
+            margin: 10px 0;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
 
-@keyframes flotar{
-    0%,100%{
-        transform:translateY(0);
-    }
-    50%{
-        transform:translateY(-10px);
-    }
-}
+        .cake {
+            font-size: 60px;
+            margin: 20px 0;
+            display: inline-block;
+            animation: tilt 3s ease-in-out infinite;
+        }
 
-@keyframes flor{
-    0%{
-        opacity:1;
-        transform:scale(0) rotate(0deg);
-    }
+        @keyframes tilt {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
 
-    100%{
-        opacity:0;
-        transform:scale(1.5) rotate(360deg);
-    }
-}
-</style>
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 20px;
+        }
+
+        .signature {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.8em;
+            color: #81ecec;
+            margin-top: 20px;
+            display: block;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            top: -10px;
+            opacity: 0;
+        }
+
+    </style>
 </head>
+<body>
 
-<body class="min-h-screen overflow-hidden bg-gradient-to-br from-rosaClaro to-pink-100">
+    <!-- Luces de fondo -->
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+    <div class="glow glow-3"></div>
 
-<!-- PANTALLA INICIO -->
-<div id="pantallaInicio" class="fixed inset-0 flex flex-col items-center justify-center p-6 pantalla-activa z-50">
-
-    <div class="absolute top-10 left-10 text-7xl opacity-20 corazon-flotante">❤️</div>
-    <div class="absolute bottom-10 right-10 text-7xl opacity-20 corazon-flotante">💖</div>
-
-    <h1 class="font-cursiva text-6xl text-amor font-bold texto-sombra text-center mb-10 z-10">
-        Para el amor de mi vida
-    </h1>
-
-    <div class="space-y-5 w-full max-w-md z-10">
-
-        <button class="opcion-frase w-full py-5 px-6 bg-white rounded-2xl shadow-lg font-cursiva text-2xl text-amor transition">
-            Eres mi alegría cada día
-        </button>
-
-        <button class="opcion-frase w-full py-5 px-6 bg-white rounded-2xl shadow-lg font-cursiva text-2xl text-amor transition">
-            Mi corazón late por ti
-        </button>
-
-        <button class="opcion-frase w-full py-5 px-6 bg-white rounded-2xl shadow-lg font-cursiva text-2xl text-amor transition">
-            No hay nadie como tú
-        </button>
-
-        <div class="flex gap-4 mt-8">
-
-            <button id="btnAbrirCarta"
-            class="flex-1 py-4 bg-rosa text-white rounded-2xl shadow-lg font-cursiva text-xl hover:scale-105 transition">
-                Abrir Carta 💌
-            </button>
-
-            <button id="btnSalir"
-            class="flex-1 py-4 bg-white rounded-2xl shadow-lg font-cursiva text-xl text-amor transition">
-                Cerrar ❤️
-            </button>
-
-        </div>
-
+    <!-- Botón del Regalo -->
+    <div id="gift-container">
+        <div class="gift-btn">🎁</div>
+        <div class="click-text">Toca para abrir</div>
     </div>
 
-    <div id="contenedorFlores" class="fixed inset-0 pointer-events-none"></div>
+    <!-- Tarjeta de Felicitación -->
+    <div class="card" id="birthday-card">
+        <div class="cake">🎂</div>
+        <h1>¡Feliz Cumpleaños!</h1>
+        <div class="name">Martín Puebla</div>
+        
+        <p>
+            ¡Que este nuevo año de vida esté lleno de mucha salud, éxito y alegría!<br>
+            Esperamos que todos tus sueños se cumplan y que disfrutes al máximo este día tan especial.
+        </p>
+        
+        <p style="font-weight: 500; margin-top: 20px;">
+            ✨ ¡Muchas felicidades y un abrazo gigante de parte de tu compañero de secundaria! ✨
+        </p>
 
-</div>
-
-
-<!-- CARTA -->
-<div id="carta" class="hidden min-h-screen items-center justify-center p-5">
-
-<div class="bg-fondo rounded-3xl shadow-2xl max-w-3xl w-full p-8 md:p-10 relative overflow-hidden">
-
-    <div id="tituloCarta"
-    class="opacity-0 translate-y-5 transition-all duration-700 text-center mb-8">
-
-        <h1 class="font-cursiva text-5xl text-amor font-bold texto-sombra">
-            Para ti, mi amor 💖
-        </h1>
-
+        <span class="signature">Con cariño</span>
     </div>
 
-    <div id="contenidoCarta"
-    class="opacity-0 translate-y-5 transition-all duration-700 delay-200 space-y-5 text-gray-700 font-texto leading-relaxed">
-
-        <p class="texto-justificado">
-            Jamás imaginé que un simple mensaje de TikTok pudiera cambiarme la vida de una manera tan bonita. Entre tantos videos, tantas personas y tantas casualidades, apareciste tú… y desde ese momento todo empezó a sentirse diferente.
-        </p>
-
-        <p class="texto-justificado">
-            Me gusta pensar que el destino hizo lo suyo para cruzarnos, porque entre millones de personas terminé encontrando a alguien tan increíble como tú.
-        </p>
-
-        <div class="bg-rosaClaro/30 p-4 rounded-xl border-l-4 border-rosa text-amor italic">
-            Llegaste por una pantalla… pero terminaste quedándote en mi corazón ❤️
-        </div>
-
-        <p class="texto-justificado">
-            Eres esa persona que logra alegrarme incluso en los días difíciles. Tu sonrisa, tu forma de hablar y tu cariño tienen un efecto enorme en mí.
-        </p>
-
-        <p class="texto-justificado">
-            Me encanta escucharte, leerte y pasar tiempo contigo aunque sea a distancia. Porque contigo nunca se siente vacío.
-        </p>
-
-        <div class="bg-white/70 rounded-xl p-5 shadow-inner">
-
-            <p class="font-cursiva text-amor text-2xl text-center font-bold mb-4">
-                Lo que más amo de ti:
-            </p>
-
-            <div class="flex flex-wrap justify-center gap-3">
-
-                <span class="px-4 py-2 bg-rosa/10 text-amor rounded-full">
-                    Tu sonrisa 💖
-                </span>
-
-                <span class="px-4 py-2 bg-rosa/10 text-amor rounded-full">
-                    Tus mensajes 🥺
-                </span>
-
-                <span class="px-4 py-2 bg-rosa/10 text-amor rounded-full">
-                    Tu voz 🎶
-                </span>
-
-                <span class="px-4 py-2 bg-rosa/10 text-amor rounded-full">
-                    Tus ojitos ✨
-                </span>
-
-                <span class="px-4 py-2 bg-rosa/10 text-amor rounded-full">
-                    Todo de ti 💞
-                </span>
-
-            </div>
-
-        </div>
-
-        <p class="texto-justificado">
-            Gracias por aparecer en mi vida de una forma tan inesperada y aun así convertirte en alguien tan importante para mí.
-        </p>
-
-        <p class="texto-justificado">
-            Quiero seguir creando recuerdos contigo y seguir enamorándome de ti todos los días un poquito más ❤️
-        </p>
-
-    </div>
-
-    <div id="fraseFinal"
-    class="opacity-0 translate-y-5 transition-all duration-700 delay-500 text-center mt-10">
-
-        <p class="font-cursiva text-4xl text-amor font-bold animate-pulse">
-            Te amo hoy,<br>mañana y siempre ❤️
-        </p>
-
-    </div>
-
-</div>
-</div>
-
-
-<script>
-
-const pantallaInicio = document.getElementById('pantallaInicio');
-const carta = document.getElementById('carta');
-const btnAbrirCarta = document.getElementById('btnAbrirCarta');
-const btnSalir = document.getElementById('btnSalir');
-const opcionesFrase = document.querySelectorAll('.opcion-frase');
-const contenedorFlores = document.getElementById('contenedorFlores');
-
-const tituloCarta = document.getElementById('tituloCarta');
-const contenidoCarta = document.getElementById('contenidoCarta');
-const fraseFinal = document.getElementById('fraseFinal');
-
-opcionesFrase.forEach(boton => {
-
-    boton.addEventListener('click', function(e){
-
-        opcionesFrase.forEach(btn=>{
-            btn.classList.remove('opcion-activa');
+    <script>
+        const giftBtn = document.getElementById('gift-container');
+        const card = document.getElementById('birthday-card');
+        
+        giftBtn.addEventListener('click', () => {
+            // 1. Animación de apertura (escala y desaparece el botón)
+            giftBtn.style.transform = 'scale(0)';
+            giftBtn.style.opacity = '0';
+            
+            setTimeout(() => {
+                // 2. Ocultar botón definitivamente
+                giftBtn.style.display = 'none';
+                
+                // 3. Mostrar la tarjeta con animación
+                card.classList.add('show');
+                
+                // 4. Lanzar confeti
+                createConfetti();
+            }, 400);
         });
 
-        this.classList.add('opcion-activa');
+        function createConfetti() {
+            const colors = ['#ff6b6b', '#feca57', '#48dbfb', '#ff9ff3', '#ffffff'];
+            
+            for (let i = 0; i < 80; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                
+                // Estilos aleatorios
+                const bg = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.background = bg;
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = '-10px';
+                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                
+                if (Math.random() > 0.5) {
+                    confetti.style.borderRadius = '50%';
+                } else {
+                    confetti.style.transform += ' skewX(20deg)';
+                }
 
-        crearFlores(e.clientX, e.clientY);
+                document.body.appendChild(confetti);
 
-    });
+                // Animación de caída
+                const duration = Math.random() * 3 + 2;
+                const delay = Math.random() * 2;
+                
+                confetti.animate([
+                    { top: '-10px', opacity: 1, transform: `rotate(0deg) translateX(0)` },
+                    { top: '110vh', opacity: 0, transform: `rotate(720deg) translateX(${Math.random() * 200 - 100}px)` }
+                ], {
+                    duration: duration * 1000,
+                    delay: delay * 1000,
+                    easing: 'cubic-bezier(0.25, .46, 0.45, 0.94)',
+                    fill: 'forwards'
+                });
 
-});
-
-btnAbrirCarta.addEventListener('click', ()=>{
-
-    pantallaInicio.classList.add('pantalla-desvaneciendose');
-
-    setTimeout(()=>{
-
-        pantallaInicio.style.display='none';
-
-        carta.style.display='flex';
-
-        setTimeout(()=>{
-
-            tituloCarta.classList.remove('opacity-0','translate-y-5');
-            contenidoCarta.classList.remove('opacity-0','translate-y-5');
-            fraseFinal.classList.remove('opacity-0','translate-y-5');
-
-        },200);
-
-    },800);
-
-});
-
-btnSalir.addEventListener('click', ()=>{
-
-    pantallaInicio.classList.add('pantalla-desvaneciendose');
-
-    setTimeout(()=>{
-
-        document.body.innerHTML=`
-        <div class="min-h-screen flex items-center justify-center bg-pink-100 text-center p-5">
-            <div>
-                <h1 class="text-6xl mb-5">💔</h1>
-                <p class="text-3xl text-pink-600 font-bold">
-                    Cerraste la carta 😭
-                </p>
-            </div>
-        </div>
-        `;
-
-    },800);
-
-});
-
-function crearFlores(x,y){
-
-    const emojis=['🌸','💖','🌷','🌺','💮'];
-
-    for(let i=0;i<10;i++){
-
-        const flor=document.createElement('div');
-
-        flor.className='flor animar';
-
-        flor.innerHTML=emojis[Math.floor(Math.random()*emojis.length)];
-
-        flor.style.left=(x + (Math.random()*120-60))+'px';
-
-        flor.style.top=(y + (Math.random()*120-60))+'px';
-
-        flor.style.fontSize=(Math.random()*20+20)+'px';
-
-        contenedorFlores.appendChild(flor);
-
-        setTimeout(()=>{
-            flor.remove();
-        },1200);
-
-    }
-
-}
-
-</script>
-
+                // Limpiar DOM después de la animación
+                setTimeout(() => {
+                    confetti.remove();
+                }, (duration + delay) * 1000);
+            }
+        }
+    </script>
 </body>
 </html>
