@@ -1,267 +1,177 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡Feliz Cumpleaños Martín! 🎉</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Great+Vibes&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para la Mejor Mamá del Mundo ❤️</title>
 
-        body {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            font-family: 'Poppins', sans-serif;
-            overflow: hidden;
-            position: relative;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-        /* Fondo conlujos suaves */
-        .glow {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            z-index: 0;
-            animation: float 6s ease-in-out infinite;
-        }
-        .glow-1 { width: 300px; height: 300px; background: #ff6b6b; top: -50px; left: -50px; }
-        .glow-2 { width: 400px; height: 400px; background: #8e44ad; bottom: -100px; right: -50px; animation-delay: 2s; }
-        .glow-3 { width: 200px; height: 200px; background: #feca57; top: 40%; left: 40%; animation-delay: 4s; opacity: 0.6; }
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
 
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(20px, -20px); }
-        }
+body{
+    min-height:100vh;
+    background:linear-gradient(135deg,#ff758c,#ff7eb3,#ffc3a0);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+    overflow-x:hidden;
+}
 
-        /* Botón de Regalo */
-        #gift-container {
-            cursor: pointer;
-            z-index: 10;
-            text-align: center;
-            transition: transform 0.3s;
-            animation: popUp 0.8s ease-out;
-        }
+.card{
+    max-width:900px;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,0.3);
+    border-radius:30px;
+    padding:50px;
+    color:white;
+    box-shadow:0 20px 50px rgba(0,0,0,0.2);
+    animation:aparecer 1.5s ease;
+}
 
-        @keyframes popUp {
-            0% { transform: scale(0); opacity: 0; }
-            80% { transform: scale(1.1); }
-            100% { transform: scale(1); opacity: 1; }
-        }
+h1{
+    text-align:center;
+    font-size:3rem;
+    margin-bottom:20px;
+}
 
-        .gift-btn {
-            font-size: 100px;
-            display: block;
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
-            transition: transform 0.2s;
-        }
+.corazon{
+    text-align:center;
+    font-size:5rem;
+    animation:latido 1.2s infinite;
+}
 
-        .gift-btn:hover {
-            transform: scale(1.1) rotate(5deg);
-        }
-        
-        .gift-btn:active {
-            transform: scale(0.95);
-        }
+p{
+    margin-top:20px;
+    font-size:1.2rem;
+    line-height:1.9;
+}
 
-        .click-text {
-            color: white;
-            font-size: 1.2rem;
-            margin-top: 10px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            opacity: 0.8;
-            animation: pulse 2s infinite;
-        }
+.firma{
+    margin-top:40px;
+    text-align:center;
+    font-size:1.5rem;
+    font-weight:bold;
+}
 
-        @keyframes pulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
-        }
+@keyframes latido{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.15);}
+}
 
-        /* Tarjeta de Cumpleaños (Oculta al inicio) */
-        .card {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-            color: white;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            z-index: 10;
-            opacity: 0;
-            transform: scale(0.8) translateY(50px);
-            pointer-events: none;
-            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: none; /* Oculto completamente */
-        }
+@keyframes aparecer{
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
 
-        .card.show {
-            display: block;
-            opacity: 1;
-            transform: scale(1) translateY(0);
-            pointer-events: all;
-        }
+.estrellas{
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    pointer-events:none;
+}
 
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            background: linear-gradient(90deg, #ffeaa7, #ff6b6b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 600;
-        }
+.estrella{
+    position:absolute;
+    color:white;
+    animation:flotar linear infinite;
+    opacity:.8;
+}
 
-        .name {
-            font-family: 'Great Vibes', cursive;
-            font-size: 3.5em;
-            color: #fff;
-            margin: 10px 0;
-            text-shadow: 0 0 10px rgba(255,255,255,0.5);
-        }
-
-        .cake {
-            font-size: 60px;
-            margin: 20px 0;
-            display: inline-block;
-            animation: tilt 3s ease-in-out infinite;
-        }
-
-        @keyframes tilt {
-            0%, 100% { transform: rotate(-5deg); }
-            50% { transform: rotate(5deg); }
-        }
-
-        p {
-            font-size: 1.1em;
-            line-height: 1.6;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 20px;
-        }
-
-        .signature {
-            font-family: 'Great Vibes', cursive;
-            font-size: 1.8em;
-            color: #81ecec;
-            margin-top: 20px;
-            display: block;
-        }
-
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            top: -10px;
-            opacity: 0;
-        }
-
-    </style>
+@keyframes flotar{
+    from{
+        transform:translateY(100vh);
+    }
+    to{
+        transform:translateY(-100px);
+    }
+}
+</style>
 </head>
 <body>
 
-    <!-- Luces de fondo -->
-    <div class="glow glow-1"></div>
-    <div class="glow glow-2"></div>
-    <div class="glow glow-3"></div>
+<div class="estrellas" id="estrellas"></div>
 
-    <!-- Botón del Regalo -->
-    <div id="gift-container">
-        <div class="gift-btn">🎁</div>
-        <div class="click-text">Toca para abrir</div>
-    </div>
+<div class="card">
 
-    <!-- Tarjeta de Felicitación -->
-    <div class="card" id="birthday-card">
-        <div class="cake">🎂</div>
-        <h1>¡Feliz Cumpleaños!</h1>
-        <div class="name">Martín Puebla</div>
-        
-        <p>
-            ¡Que este nuevo año de vida esté lleno de mucha salud, éxito y alegría!<br>
-            Esperamos que todos tus sueños se cumplan y que disfrutes al máximo este día tan especial.
-        </p>
-        
-        <p style="font-weight: 500; margin-top: 20px;">
-            ✨ ¡Muchas felicidades y un abrazo gigante de parte de tu compañero de secundaria! ✨
-        </p>
+<div class="corazon">💖</div>
 
-        <span class="signature">Con cariño</span>
-    </div>
+<h1>Para la Mejor Mamá del Mundo</h1>
 
-    <script>
-        const giftBtn = document.getElementById('gift-container');
-        const card = document.getElementById('birthday-card');
-        
-        giftBtn.addEventListener('click', () => {
-            // 1. Animación de apertura (escala y desaparece el botón)
-            giftBtn.style.transform = 'scale(0)';
-            giftBtn.style.opacity = '0';
-            
-            setTimeout(() => {
-                // 2. Ocultar botón definitivamente
-                giftBtn.style.display = 'none';
-                
-                // 3. Mostrar la tarjeta con animación
-                card.classList.add('show');
-                
-                // 4. Lanzar confeti
-                createConfetti();
-            }, 400);
-        });
+<p>
+Mamá, hoy quiero dedicarte estas palabras porque muchas veces no encuentro la manera perfecta de expresar todo lo que siento por ti. A veces las palabras parecen pequeñas cuando intento describir lo importante que eres para mí.
+</p>
 
-        function createConfetti() {
-            const colors = ['#ff6b6b', '#feca57', '#48dbfb', '#ff9ff3', '#ffffff'];
-            
-            for (let i = 0; i < 80; i++) {
-                const confetti = document.createElement('div');
-                confetti.classList.add('confetti');
-                
-                // Estilos aleatorios
-                const bg = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.background = bg;
-                confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.top = '-10px';
-                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
-                
-                if (Math.random() > 0.5) {
-                    confetti.style.borderRadius = '50%';
-                } else {
-                    confetti.style.transform += ' skewX(20deg)';
-                }
+<p>
+Gracias por cada abrazo que me ha dado fuerzas cuando me sentía triste, por cada consejo que me ha ayudado a seguir adelante y por cada momento en el que has estado a mi lado sin importar las circunstancias. Tu amor ha sido una luz constante en mi vida y un refugio seguro en los días difíciles.
+</p>
 
-                document.body.appendChild(confetti);
+<p>
+Gracias por las noches en las que te preocupaste por mí, por los sacrificios que hiciste en silencio y por cada esfuerzo que realizaste para verme feliz. Muchas de las cosas que haces pasan desapercibidas, pero quiero que sepas que las valoro profundamente.
+</p>
 
-                // Animación de caída
-                const duration = Math.random() * 3 + 2;
-                const delay = Math.random() * 2;
-                
-                confetti.animate([
-                    { top: '-10px', opacity: 1, transform: `rotate(0deg) translateX(0)` },
-                    { top: '110vh', opacity: 0, transform: `rotate(720deg) translateX(${Math.random() * 200 - 100}px)` }
-                ], {
-                    duration: duration * 1000,
-                    delay: delay * 1000,
-                    easing: 'cubic-bezier(0.25, .46, 0.45, 0.94)',
-                    fill: 'forwards'
-                });
+<p>
+Eres una mujer increíble, fuerte, valiente y llena de amor. Me enseñas cada día el significado de la bondad, la paciencia y la perseverancia. Tu ejemplo me inspira a ser una mejor persona y a nunca rendirme ante los desafíos.
+</p>
 
-                // Limpiar DOM después de la animación
-                setTimeout(() => {
-                    confetti.remove();
-                }, (duration + delay) * 1000);
-            }
-        }
-    </script>
+<p>
+Cuando pienso en todo lo que has hecho por mí, entiendo que no existe regalo suficiente para agradecerte. Sin embargo, quiero que estas palabras te recuerden algo muy importante: eres amada, admirada y apreciada más de lo que imaginas.
+</p>
+
+<p>
+Gracias por creer en mí incluso cuando yo dudaba. Gracias por celebrar mis logros, por levantarme en mis caídas y por acompañarme en cada etapa de mi vida. Tu apoyo significa más para mí de lo que podría expresar con cualquier frase.
+</p>
+
+<p>
+Deseo que siempre recuerdes lo especial que eres. Tu sonrisa ilumina los días, tu cariño sana corazones y tu presencia hace que cualquier lugar se sienta como hogar.
+</p>
+
+<p>
+Si tuviera que elegir a una mamá una y otra vez, te elegiría a ti en cada oportunidad. Porque eres única, porque eres maravillosa y porque tenerte en mi vida es uno de los regalos más grandes que podría recibir.
+</p>
+
+<p>
+Te amo con todo mi corazón. Hoy, mañana y siempre. Gracias por ser mi mamá, mi guía, mi apoyo y una de las personas más importantes de toda mi vida.
+</p>
+
+<div class="firma">
+❤️ Con todo mi amor para ti, mamá ❤️
+</div>
+
+</div>
+
+<script>
+const contenedor = document.getElementById("estrellas");
+
+for(let i=0;i<40;i++){
+    const estrella = document.createElement("div");
+    estrella.classList.add("estrella");
+    estrella.innerHTML = "💖";
+
+    estrella.style.left = Math.random()*100+"%";
+    estrella.style.fontSize = (Math.random()*20+10)+"px";
+    estrella.style.animationDuration = (Math.random()*8+5)+"s";
+    estrella.style.animationDelay = Math.random()*5+"s";
+
+    contenedor.appendChild(estrella);
+}
+</script>
+
 </body>
 </html>
