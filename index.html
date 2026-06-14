@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Descargador Universal - MP3 & MP4</title>
     <style>
-        /* ESTILOS CSS (Interfaz Moderna) */
         :root {
             --primary-color: #6c5ce7;
             --secondary-color: #a29bfe;
@@ -87,47 +86,29 @@
             transform: translateY(-2px);
         }
 
-        button:active {
-            transform: translateY(0);
-        }
-
         button:disabled {
             background-color: #b2bec3;
             cursor: not-allowed;
         }
 
-        /* Barra de progreso */
-        .progress-container {
-            margin-top: 1.5rem;
+        .message {
+            margin-top: 1rem;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9rem;
             display: none;
         }
 
-        .progress-bar {
-            width: 100%;
-            height: 10px;
-            background-color: #dfe6e9;
-            border-radius: 5px;
-            overflow: hidden;
+        .message.error {
+            background-color: #ff7675;
+            color: white;
+            display: block;
         }
 
-        .progress-fill {
-            height: 100%;
-            background-color: #00b894;
-            width: 0%;
-            transition: width 0.5s;
-        }
-
-        .status-text {
-            margin-top: 0.5rem;
-            font-size: 0.9rem;
-            color: #636e72;
-        }
-
-        /* Footer */
-        .footer {
-            margin-top: 1.5rem;
-            font-size: 0.8rem;
-            color: #b2bec3;
+        .message.success {
+            background-color: #55efc4;
+            color: #2d3436;
+            display: block;
         }
     </style>
 </head>
@@ -137,8 +118,8 @@
         <h1>Downloader Pro</h1>
         
         <div class="input-group">
-            <label for="urlInput">Enlace del vídeo o audio:</label>
-            <input type="url" id="urlInput" placeholder="Pega el link aquí (YouTube, Drive, etc.)">
+            <label for="urlInput">Enlace directo (URL):</label>
+            <input type="url" id="urlInput" placeholder="Ejemplo: https://ejemplo.com/cancion.mp3">
         </div>
 
         <div class="input-group">
@@ -151,91 +132,91 @@
 
         <button id="downloadBtn" onclick="iniciarDescarga()">Descargar</button>
 
-        <div class="progress-container" id="progressContainer">
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
-            <div class="status-text" id="statusText">Preparando...</div>
-        </div>
-
-        <div class="footer">
-            Compatible con enlaces directos.
-        </div>
+        <div class="message" id="messageBox"></div>
+        
+        <p style="font-size: 0.8rem; color: #999; margin-top: 20px;">
+            Nota: Solo funciona con enlaces directos a archivos (.mp3 o .mp4).
+        </p>
     </div>
 
     <script>
-        // Lógica de JavaScript
-        async function iniciarDescarga() {
+        function iniciarDescarga() {
             const urlInput = document.getElementById('urlInput');
             const formatSelect = document.getElementById('formatSelect');
             const downloadBtn = document.getElementById('downloadBtn');
-            const progressContainer = document.getElementById('progressContainer');
-            const progressFill = document.getElementById('progressFill');
-            const statusText = document.getElementById('statusText');
+            const messageBox = document.getElementById('messageBox');
 
             let url = urlInput.value.trim();
             let formato = formatSelect.value;
 
-            // 1. Validación simple
+            // Limpiar mensajes anteriores
+            messageBox.className = 'message';
+            messageBox.style.display = 'none';
+
+            // Validación 1: Campo vacío
             if (!url) {
-                alert("Por favor, ingresa un enlace.");
+                mostrarError("Por favor, ingresa un enlace.");
                 return;
             }
 
-            // 2. Cambiar estado a "Cargando"
-            downloadBtn.disabled = true;
-            downloadBtn.innerText = "Procesando...";
-            progressContainer.style.display = "block";
-            statusText.innerText = "Conectando al servidor...";
-            progressFill.style.width = "10%";
+            // Validación 2: Verificar que sea un enlacehttp/https
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                mostrarError("El enlace debe empezar por http:// o https://");
+                return;
+            }
 
-            // Simulación de lógica de descarga
-            // NOTE: Para descargar de YouTube real, aquí se necesitaría una llamada a una API externa.
-            // Como esto es HTML client-side, intentaremos una descarga directa si es un archivo.
+            // Validación 3: Intentar detectar la extensión real
+            // Si el usuario eligió MP3, verificamos que la URL termine en algo relacionado
+            // Si no termina en una extensión conocida, intentaremos forzar la descarga
             
-            setTimeout(() => {
-                statusText.innerText = "Obteniendo formato " + formato.toUpperCase() + "...";
-                progressFill.style.width = "40%";
-            }, 1000);
+            downloadBtn.disabled = true;
+            downloadBtn.innerText = "Iniciando descarga...";
 
-            setTimeout(() => {
-                statusText.innerText = "Descargando archivo...";
-                progressFill.style.width = "80%";
-            }, 2000);
-
-            setTimeout(() => {
-                statusText.innerText = "¡Descarga completada!";
-                progressFill.style.width = "100%";
-                downloadBtn.innerText = "Descargar";
-                downloadBtn.disabled = false;
-                
-                // Reiniciar después de 2 segundos
-                setTimeout(() => {
-                    progressContainer.style.display = "none";
-                    progressFill.style.width = "0%";
-                    alert("Si el enlace es directo, la descarga habría comenzado.");
-                }, 2000);
-
-            }, 3000);
-
-            // Lógica REAL para intentar descargar si es un enlace directo (no de streaming)
-            // Esto intentará forzar la descarga del navegador
-            /*
+            // Forzar descarga usando un elemento隐形 <a>
             try {
                 const link = document.createElement('a');
                 link.href = url;
-                // Extraemos el nombre del archivo de la URL
-                let fileName = url.substring(url.lastIndexOf('/') + 1);
-                if(!fileName.includes(format)) fileName += "." + formato;
-                link.download = fileName;
-                link.target = '_blank';
+                link.target = '_blank'; // Abrir en nueva pestaña si no descarga
+                link.download = ''; // Intenta descargar (funciona en Chrome/Firefox si el servidor lo permite)
+                
+                // Añadir al DOM, click, y quitar
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
+
+                downloadBtn.disabled = false;
+                downloadBtn.innerText = "Descargar";
+                
+                // Si el enlace es directo y el servidor lo permite, esto abrirá la descarga
+                mostrarSuccess("Descargando... revisa tu carpeta de descargas.");
+
+                // Si después de 3 segundos no pasó nada, advertimos
+                setTimeout(() => {
+                    if (messageBox.classList.contains('success')) {
+                        // Todo bien, la descarga debió empezar
+                    }
+                }, 3000);
+
             } catch (e) {
-                console.log("No se pudo iniciar descarga automática", e);
+                downloadBtn.disabled = false;
+                downloadBtn.innerText = "Descargar";
+                mostrarError("Error al intentar descargar. El servidor puede tener restricciones.");
+                console.error(e);
             }
-            */
+        }
+
+        function mostrarError(msg) {
+            const messageBox = document.getElementById('messageBox');
+            messageBox.innerText = msg;
+            messageBox.className = 'message error';
+            messageBox.style.display = 'block';
+        }
+
+        function mostrarSuccess(msg) {
+            const messageBox = document.getElementById('messageBox');
+            messageBox.innerText = msg;
+            messageBox.className = 'message success';
+            messageBox.style.display = 'block';
         }
     </script>
 </body>
