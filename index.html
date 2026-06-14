@@ -3,220 +3,253 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Descargador Universal - MP3 & MP4</title>
+    <title>Descargador Pro - MP3 & MP4</title>
     <style>
-        :root {
-            --primary-color: #6c5ce7;
-            --secondary-color: #a29bfe;
-            --background: #dfe6e9;
-            --card-bg: #ffffff;
-            --text-color: #2d3436;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--background);
-            color: var(--text-color);
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            margin: 0;
+            padding: 20px;
         }
 
-        .app-container {
-            background-color: var(--card-bg);
-            padding: 2rem;
+        .container {
+            background: white;
+            padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 500px;
         }
 
         h1 {
-            margin-bottom: 1.5rem;
-            color: var(--primary-color);
-            font-size: 1.8rem;
+            text-align: center;
+            color: #1e3c72;
+            margin-bottom: 30px;
+            font-size: 2rem;
         }
 
         .input-group {
-            margin-bottom: 1.5rem;
-            text-align: left;
+            margin-bottom: 20px;
         }
 
         label {
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 8px;
+            color: #333;
             font-weight: bold;
-            font-size: 0.9rem;
-            color: #636e72;
         }
 
-        input[type="url"], select {
+        input[type="text"] {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #b2bec3;
+            padding: 15px;
+            border: 2px solid #ddd;
             border-radius: 10px;
-            font-size: 1rem;
-            outline: none;
-            box-sizing: border-box;
+            font-size: 16px;
             transition: border-color 0.3s;
         }
 
-        input[type="url"]:focus, select:focus {
-            border-color: var(--primary-color);
+        input[type="text"]:focus {
+            border-color: #1e3c72;
+            outline: none;
         }
 
-        button {
-            width: 100%;
+        .format-options {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .format-btn {
+            flex: 1;
             padding: 15px;
-            background-color: var(--primary-color);
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .format-btn.active {
+            background: #1e3c72;
+            color: white;
+            border-color: #1e3c72;
+        }
+
+        .download-btn {
+            width: 100%;
+            padding: 18px;
+            background: #00d26a;
             color: white;
             border: none;
             border-radius: 10px;
-            font-size: 1.1rem;
+            font-size: 18px;
             font-weight: bold;
             cursor: pointer;
-            transition: transform 0.2s, background-color 0.3s;
+            transition: transform 0.2s;
         }
 
-        button:hover {
-            background-color: #5849c2;
-            transform: translateY(-2px);
+        .download-btn:hover {
+            transform: scale(1.02);
+            background: #00b85e;
         }
 
-        button:disabled {
-            background-color: #b2bec3;
+        .download-btn:disabled {
+            background: #ccc;
             cursor: not-allowed;
         }
 
-        .message {
-            margin-top: 1rem;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.9rem;
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 10px;
             display: none;
         }
 
-        .message.error {
-            background-color: #ff7675;
-            color: white;
+        .result.show {
             display: block;
         }
 
-        .message.success {
-            background-color: #55efc4;
-            color: #2d3436;
+        .result a {
             display: block;
+            padding: 15px;
+            background: #1e3c72;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .result a:hover {
+            background: #2a5298;
+        }
+
+        .note {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
 
-    <div class="app-container">
-        <h1>Downloader Pro</h1>
+    <div class="container">
+        <h1>⬇️ LUXTIN MUSIC™</h1>
         
         <div class="input-group">
-            <label for="urlInput">Enlace directo (URL):</label>
-            <input type="url" id="urlInput" placeholder="Ejemplo: https://ejemplo.com/cancion.mp3">
+            <label>Pega el enlace del vídeo:</label>
+            <input type="text" id="urlInput" placeholder="Ej: https://www.youtube.com/watch?v=...">
         </div>
 
-        <div class="input-group">
-            <label for="formatSelect">Seleccionar Formato:</label>
-            <select id="formatSelect">
-                <option value="mp4">Video (MP4)</option>
-                <option value="mp3">Audio (MP3)</option>
-            </select>
+        <label>Elige el formato:</label>
+        <div class="format-options">
+            <div class="format-btn active" onclick="selectFormat('mp3', this)" id="btnMp3">
+                🎵 MP3
+            </div>
+            <div class="format-btn" onclick="selectFormat('mp4', this)" id="btnMp4">
+                🎬 MP4
+            </div>
         </div>
 
-        <button id="downloadBtn" onclick="iniciarDescarga()">Descargar</button>
+        <button class="download-btn" id="downloadBtn" onclick="downloadMedia()">
+            DESCARGAR
+        </button>
 
-        <div class="message" id="messageBox"></div>
-        
-        <p style="font-size: 0.8rem; color: #999; margin-top: 20px;">
-            Nota: Solo funciona con enlaces directos a archivos (.mp3 o .mp4).
+        <div class="result" id="resultContainer">
+            <p style="margin-bottom: 10px; color: #333;">✅ ¡Procesado! Haz clic para descargar:</p>
+            <a id="downloadLink" href="#" target="_blank">Descargar Archivo</a>
+        </div>
+
+        <p class="note">
+            Solo para uso personal. Respeta los derechos de autor.
         </p>
     </div>
 
     <script>
-        function iniciarDescarga() {
+        let selectedFormat = 'mp3';
+
+        function selectFormat(format, element) {
+            selectedFormat = format;
+            
+            // Quitar active de todos
+            document.querySelectorAll('.format-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Agregar active al seleccionado
+            element.classList.add('active');
+        }
+
+        function downloadMedia() {
             const urlInput = document.getElementById('urlInput');
-            const formatSelect = document.getElementById('formatSelect');
             const downloadBtn = document.getElementById('downloadBtn');
-            const messageBox = document.getElementById('messageBox');
+            const resultContainer = document.getElementById('resultContainer');
+            const downloadLink = document.getElementById('downloadLink');
 
             let url = urlInput.value.trim();
-            let formato = formatSelect.value;
 
-            // Limpiar mensajes anteriores
-            messageBox.className = 'message';
-            messageBox.style.display = 'none';
-
-            // Validación 1: Campo vacío
             if (!url) {
-                mostrarError("Por favor, ingresa un enlace.");
+                alert('Por favor, pega un enlace primero');
                 return;
             }
 
-            // Validación 2: Verificar que sea un enlacehttp/https
-            if (!url.startsWith('http://') && !url.startsWith('https://')) {
-                mostrarError("El enlace debe empezar por http:// o https://");
+            // Verificar que sea YouTube
+            if (!url.includes('youtube.com') && !url.includes('youtu.be')) {
+                alert('Por ahora solo funciona con enlaces de YouTube');
                 return;
             }
 
-            // Validación 3: Intentar detectar la extensión real
-            // Si el usuario eligió MP3, verificamos que la URL termine en algo relacionado
-            // Si no termina en una extensión conocida, intentaremos forzar la descarga
-            
             downloadBtn.disabled = true;
-            downloadBtn.innerText = "Iniciando descarga...";
+            downloadBtn.innerText = 'Procesando...';
 
-            // Forzar descarga usando un elemento隐形 <a>
-            try {
-                const link = document.createElement('a');
-                link.href = url;
-                link.target = '_blank'; // Abrir en nueva pestaña si no descarga
-                link.download = ''; // Intenta descargar (funciona en Chrome/Firefox si el servidor lo permite)
-                
-                // Añadir al DOM, click, y quitar
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
+            // Usar API pública de y2mate (gratuita)
+            // Nota: Este método puede variar ya que depende de servicios externos
+            fetch(`https://www.y2mate.com/youtube-mp3?url=${encodeURIComponent(url)}`)
+                .then(response => response.text())
+                .then(html => {
+                    // Buscar el link de descarga en la respuesta
+                    let parser = new DOMParser();
+                    let doc = parser.parseFromString(html, 'text/html');
+                    let link = doc.querySelector('.download-link')?.href || 
+                              doc.querySelector('a[href*="download"]')?.href;
 
-                downloadBtn.disabled = false;
-                downloadBtn.innerText = "Descargar";
-                
-                // Si el enlace es directo y el servidor lo permite, esto abrirá la descarga
-                mostrarSuccess("Descargando... revisa tu carpeta de descargas.");
-
-                // Si después de 3 segundos no pasó nada, advertimos
-                setTimeout(() => {
-                    if (messageBox.classList.contains('success')) {
-                        // Todo bien, la descarga debió empezar
+                    if (link) {
+                        downloadLink.href = link;
+                        resultContainer.classList.add('show');
+                        downloadBtn.innerText = 'DESCARGAR';
+                        downloadBtn.disabled = false;
+                    } else {
+                        // Método alternativo: abrir en nueva pestaña
+                        let videoId = url.split('v=')[1]?.split('&')[0];
+                        let altUrl = `https://www.y2mate.com/youtube/${videoId}`;
+                        window.open(altUrl, '_blank');
+                        downloadBtn.innerText = 'DESCARGAR';
+                        downloadBtn.disabled = false;
+                        alert('Se abrirá una página externa para completar la descarga');
                     }
-                }, 3000);
-
-            } catch (e) {
-                downloadBtn.disabled = false;
-                downloadBtn.innerText = "Descargar";
-                mostrarError("Error al intentar descargar. El servidor puede tener restricciones.");
-                console.error(e);
-            }
-        }
-
-        function mostrarError(msg) {
-            const messageBox = document.getElementById('messageBox');
-            messageBox.innerText = msg;
-            messageBox.className = 'message error';
-            messageBox.style.display = 'block';
-        }
-
-        function mostrarSuccess(msg) {
-            const messageBox = document.getElementById('messageBox');
-            messageBox.innerText = msg;
-            messageBox.className = 'message success';
-            messageBox.style.display = 'block';
+                })
+                .catch(error => {
+                    // Si falla, abrir en nueva pestaña
+                    let videoId = url.includes('youtu.be') ? url.split('/').pop().split('?')[0] : url.split('v=')[1]?.split('&')[0];
+                    if(videoId) {
+                        window.open(`https://www.y2mate.com/youtube/${videoId}`, '_blank');
+                    }
+                    downloadBtn.innerText = 'DESCARGAR';
+                    downloadBtn.disabled = false;
+                });
         }
     </script>
 </body>
