@@ -1,256 +1,199 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Descargador Pro - MP3 & MP4</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feliz Día del Padre ❤️</title>
 
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:black;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    transition:background 1s;
+    overflow-x:hidden;
+}
 
-        .container {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            width: 100%;
-            max-width: 500px;
-        }
+.caja{
+    background:white;
+    width:85%;
+    max-width:800px;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 0 20px rgba(255,255,255,0.2);
+    text-align:center;
+    position:relative;
+    z-index:10;
+}
 
-        h1 {
-            text-align: center;
-            color: #1e3c72;
-            margin-bottom: 30px;
-            font-size: 2rem;
-        }
+h1{
+    color:#333;
+}
 
-        .input-group {
-            margin-bottom: 20px;
-        }
+.regalo{
+    font-size:100px;
+    cursor:pointer;
+    transition:0.5s;
+}
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: bold;
-        }
+.regalo:hover{
+    transform:scale(1.1);
+}
 
-        input[type="text"] {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
+.mensaje{
+    display:none;
+    margin-top:20px;
+    text-align:left;
+    line-height:1.8;
+    font-size:18px;
+    animation:aparecer 1s;
+}
 
-        input[type="text"]:focus {
-            border-color: #1e3c72;
-            outline: none;
-        }
+@keyframes aparecer{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
 
-        .format-options {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
+.corazon{
+    color:red;
+    font-size:30px;
+    text-align:center;
+}
 
-        .format-btn {
-            flex: 1;
-            padding: 15px;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            background: white;
-            cursor: pointer;
-            text-align: center;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
+.lluvia{
+    position:fixed;
+    top:-50px;
+    font-size:30px;
+    pointer-events:none;
+    animation:caer linear forwards;
+    z-index:1;
+}
 
-        .format-btn.active {
-            background: #1e3c72;
-            color: white;
-            border-color: #1e3c72;
-        }
-
-        .download-btn {
-            width: 100%;
-            padding: 18px;
-            background: #00d26a;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .download-btn:hover {
-            transform: scale(1.02);
-            background: #00b85e;
-        }
-
-        .download-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-        }
-
-        .result {
-            margin-top: 25px;
-            padding: 20px;
-            background: #f5f5f5;
-            border-radius: 10px;
-            display: none;
-        }
-
-        .result.show {
-            display: block;
-        }
-
-        .result a {
-            display: block;
-            padding: 15px;
-            background: #1e3c72;
-            color: white;
-            text-decoration: none;
-            text-align: center;
-            border-radius: 8px;
-            font-weight: bold;
-        }
-
-        .result a:hover {
-            background: #2a5298;
-        }
-
-        .note {
-            text-align: center;
-            margin-top: 20px;
-            color: #666;
-            font-size: 14px;
-        }
-    </style>
+@keyframes caer{
+    from{
+        transform:translateY(-50px);
+    }
+    to{
+        transform:translateY(110vh);
+    }
+}
+</style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>⬇️ LUXTIN MUSIC™</h1>
-        
-        <div class="input-group">
-            <label>Pega el enlace del vídeo:</label>
-            <input type="text" id="urlInput" placeholder="Ej: https://www.youtube.com/watch?v=...">
-        </div>
+<audio autoplay loop>
+    <source src="musica.mp3" type="audio/mpeg">
+</audio>
 
-        <label>Elige el formato:</label>
-        <div class="format-options">
-            <div class="format-btn active" onclick="selectFormat('mp3', this)" id="btnMp3">
-                🎵 MP3
-            </div>
-            <div class="format-btn" onclick="selectFormat('mp4', this)" id="btnMp4">
-                🎬 MP4
-            </div>
-        </div>
+<div class="caja">
+    <h1>🎉 Feliz Día del Padre 🎉</h1>
 
-        <button class="download-btn" id="downloadBtn" onclick="downloadMedia()">
-            DESCARGAR
-        </button>
-
-        <div class="result" id="resultContainer">
-            <p style="margin-bottom: 10px; color: #333;">✅ ¡Procesado! Haz clic para descargar:</p>
-            <a id="downloadLink" href="#" target="_blank">Descargar Archivo</a>
-        </div>
-
-        <p class="note">
-            Solo para uso personal. Respeta los derechos de autor.
-        </p>
+    <div class="regalo" onclick="abrirRegalo()">
+        🎁
     </div>
 
-    <script>
-        let selectedFormat = 'mp3';
+    <p>Haz clic en el regalo para abrir tu sorpresa</p>
 
-        function selectFormat(format, element) {
-            selectedFormat = format;
-            
-            // Quitar active de todos
-            document.querySelectorAll('.format-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            // Agregar active al seleccionado
-            element.classList.add('active');
-        }
+    <div class="mensaje" id="mensaje">
 
-        function downloadMedia() {
-            const urlInput = document.getElementById('urlInput');
-            const downloadBtn = document.getElementById('downloadBtn');
-            const resultContainer = document.getElementById('resultContainer');
-            const downloadLink = document.getElementById('downloadLink');
+        <h2>Para el mejor papá ❤️</h2>
 
-            let url = urlInput.value.trim();
+        <p>Querido papá:</p>
 
-            if (!url) {
-                alert('Por favor, pega un enlace primero');
-                return;
-            }
+        <p>
+        Hoy quiero dedicarte estas palabras para agradecerte por todo lo que haces por mí.
+        Gracias por cada esfuerzo, por cada consejo y por cada momento en el que estuviste
+        presente cuando más te necesité.
+        </p>
 
-            // Verificar que sea YouTube
-            if (!url.includes('youtube.com') && !url.includes('youtu.be')) {
-                alert('Por ahora solo funciona con enlaces de YouTube');
-                return;
-            }
+        <p>
+        Gracias por enseñarme valores, por ayudarme a crecer como persona y por demostrarme
+        con tus acciones lo que significa ser fuerte, responsable y generoso. Todo lo que
+        haces cada día tiene un valor enorme y muchas veces no se puede expresar con simples palabras.
+        </p>
 
-            downloadBtn.disabled = true;
-            downloadBtn.innerText = 'Procesando...';
+        <p>
+        Gracias por tus sacrificios, por tu paciencia y por trabajar tan duro para darme
+        lo mejor que puedes. Admiro tu fuerza y la manera en que enfrentas cada desafío.
+        </p>
 
-            // Usar API pública de y2mate (gratuita)
-            // Nota: Este método puede variar ya que depende de servicios externos
-            fetch(`https://www.y2mate.com/youtube-mp3?url=${encodeURIComponent(url)}`)
-                .then(response => response.text())
-                .then(html => {
-                    // Buscar el link de descarga en la respuesta
-                    let parser = new DOMParser();
-                    let doc = parser.parseFromString(html, 'text/html');
-                    let link = doc.querySelector('.download-link')?.href || 
-                              doc.querySelector('a[href*="download"]')?.href;
+        <p>
+        Me siento muy afortunado(a) de tenerte como padre. Tu apoyo y tu cariño significan
+        más para mí de lo que imaginas. Siempre has sido una guía importante en mi vida y
+        una persona a quien admiro profundamente.
+        </p>
 
-                    if (link) {
-                        downloadLink.href = link;
-                        resultContainer.classList.add('show');
-                        downloadBtn.innerText = 'DESCARGAR';
-                        downloadBtn.disabled = false;
-                    } else {
-                        // Método alternativo: abrir en nueva pestaña
-                        let videoId = url.split('v=')[1]?.split('&')[0];
-                        let altUrl = `https://www.y2mate.com/youtube/${videoId}`;
-                        window.open(altUrl, '_blank');
-                        downloadBtn.innerText = 'DESCARGAR';
-                        downloadBtn.disabled = false;
-                        alert('Se abrirá una página externa para completar la descarga');
-                    }
-                })
-                .catch(error => {
-                    // Si falla, abrir en nueva pestaña
-                    let videoId = url.includes('youtu.be') ? url.split('/').pop().split('?')[0] : url.split('v=')[1]?.split('&')[0];
-                    if(videoId) {
-                        window.open(`https://www.y2mate.com/youtube/${videoId}`, '_blank');
-                    }
-                    downloadBtn.innerText = 'DESCARGAR';
-                    downloadBtn.disabled = false;
-                });
-        }
-    </script>
+        <p>
+        En este Día del Padre quiero desearte mucha felicidad, salud y momentos hermosos.
+        Mereces todo el amor y reconocimiento del mundo porque eres una persona increíble.
+        </p>
+
+        <p>
+        Gracias por cada sonrisa, cada enseñanza y cada recuerdo compartido. Espero que este
+        día sea tan especial como tú lo eres para nuestra familia.
+        </p>
+
+        <p>
+        Nunca olvides cuánto te quiero y cuánto agradezco tenerte en mi vida.
+        </p>
+
+        <h2 class="corazon">❤️ Feliz Día del Padre ❤️</h2>
+
+    </div>
+</div>
+
+<script>
+let lluviaIniciada = false;
+
+function abrirRegalo(){
+    document.getElementById("mensaje").style.display = "block";
+    document.body.style.background = "#555";
+
+    if(!lluviaIniciada){
+        lluviaIniciada = true;
+        iniciarLluvia();
+    }
+}
+
+function iniciarLluvia(){
+
+    const emojis = [
+        "🎁","🎁","🎁",
+        "❤️","❤️","❤️",
+        "💵","💰","💸"
+    ];
+
+    setInterval(() => {
+
+        const elemento = document.createElement("div");
+
+        elemento.className = "lluvia";
+        elemento.innerHTML =
+            emojis[Math.floor(Math.random() * emojis.length)];
+
+        elemento.style.left = Math.random() * 100 + "vw";
+        elemento.style.animationDuration =
+            (Math.random() * 3 + 3) + "s";
+
+        document.body.appendChild(elemento);
+
+        setTimeout(() => {
+            elemento.remove();
+        }, 6000);
+
+    }, 120);
+}
+</script>
+
 </body>
 </html>
