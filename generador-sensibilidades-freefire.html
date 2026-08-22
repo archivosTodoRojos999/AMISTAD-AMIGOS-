@@ -403,9 +403,9 @@ function calculateSensitivity(brand, model, mode, weapon){
   const tierFactor = 1 - (tier - 2) * 0.01;
   let base;
   if(mode === 'todo-rojo'){
-    if(weapon === 'desert'){ base = {general:200,redDot:200,'2x':198,'4x':192,sniper:185,freeLook:200}; }
-    else if(weapon === 'escopeta'){ base = {general:200,redDot:200,'2x':200,'4x':195,sniper:185,freeLook:200}; }
-    else if(weapon === 'm1014'){ base = {general:200,redDot:200,'2x':198,'4x':193,sniper:185,freeLook:200}; }
+    if(weapon === 'desert'){ base = {general:200,redDot:200,'2x':200,'4x':200,sniper:200,freeLook:200}; }
+    else if(weapon === 'escopeta'){ base = {general:200,redDot:200,'2x':200,'4x':200,sniper:200,freeLook:200}; }
+    else if(weapon === 'm1014'){ base = {general:200,redDot:200,'2x':200,'4x':200,sniper:200,freeLook:200}; }
   } else {
     if(weapon === 'ak47'){ base = {general:165,redDot:160,'2x':155,'4x':148,sniper:140,freeLook:170}; }
     else if(weapon === 'smg'){ base = {general:175,redDot:170,'2x':165,'4x':155,sniper:145,freeLook:180}; }
