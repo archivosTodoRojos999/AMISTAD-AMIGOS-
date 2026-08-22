@@ -160,6 +160,7 @@ body{background:linear-gradient(135deg,#0a0a12,#0a1a0a,#0a0a12,#0a0a1a);backgrou
   </div>
 </div>
 
+<button id="musicBtn" onclick="toggleMusic()" style="position:fixed;top:15px;right:15px;z-index:9998;background:#0d0d1a;border:2px solid #00ff41;color:#00ff41;width:45px;height:45px;border-radius:50%;font-size:20px;cursor:pointer;box-shadow:0 0 15px rgba(0,255,65,.3);transition:all .3s" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">🔊</button>
 <div id="app">
 
 <div class="screen active" id="screen1">
@@ -662,6 +663,140 @@ window.addEventListener('load', function(){
     }
   }, 5000);
 });
+
+// === MUSICA DE AURA ===
+let audioCtx = null;
+let musicGain = null;
+let calmInterval = null;
+let auraInterval = null;
+let musicOn = false;
+
+function startMusic(){
+  if(musicOn) return;
+  musicOn = true;
+  try{
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    musicGain = audioCtx.createGain();
+    musicGain.gain.value = 0;
+    musicGain.connect(audioCtx.destination);
+    // Fade in suave
+    musicGain.gain.linearRampToValueAtTime(0.15, audioCtx.currentTime + 1);
+
+    // FASE 1: Aura tranquila (durante intro)
+    playCalmAura();
+    
+    // FASE 2: Despues de 3 segundos (cuando termina intro) -> Aura completa
+    setTimeout(()=>{
+      stopCalmAura();
+      playFullAura();
+    }, 3000);
+  }catch(e){ console.log('Audio no disponible'); }
+}
+
+function playCalmAura(){
+  // Notas tranquilas: Do, Mi, Sol (acorde suave)
+  const notes = [261.63, 329.63, 392.00];
+  let i = 0;
+  calmInterval = setInterval(()=>{
+    if(!audioCtx) return;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = notes[i % notes.length];
+    gain.gain.setValueAtTime(0, audioCtx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.08, audioCtx.currentTime + 0.5);
+    gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 2);
+    osc.connect(gain);
+    gain.connect(musicGain);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 2);
+    i++;
+  }, 800);
+}
+
+function stopCalmAura(){
+  if(calmInterval){ clearInterval(calmInterval); calmInterval = null; }
+}
+
+function playFullAura(){
+  // Bajo constante
+  const bass = audioCtx.createOscillator();
+  const bassGain = audioCtx.createGain();
+  bass.type = 'sine';
+  bass.frequency.value = 65.41; // Do grave
+  bassGain.gain.setValueAtTime(0, audioCtx.currentTime);
+  bassGain.gain.linearRampToValueAtTime(0.12, audioCtx.currentTime + 0.5);
+  bass.connect(bassGain);
+  bassGain.connect(musicGain);
+  bass.start();
+
+  // Melodia aura: Do, Re, Mi, Sol, La en bucle
+  const melody = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25];
+  let m = 0;
+  auraInterval = setInterval(()=>{
+    if(!audioCtx) return;
+    // Nota melodica
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'triangle';
+    osc.frequency.value = melody[m % melody.length];
+    gain.gain.setValueAtTime(0, audioCtx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 0.1);
+    gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.8);
+    osc.connect(gain);
+    gain.connect(musicGain);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.8);
+    // Armonia cada 2 notas
+    if(m % 2 === 0){
+      const harm = audioCtx.createOscillator();
+      const hGain = audioCtx.createGain();
+      harm.type = 'sine';
+      harm.frequency.value = melody[m % melody.length] * 1.5;
+      hGain.gain.setValueAtTime(0, audioCtx.currentTime);
+      hGain.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 0.1);
+      hGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 1);
+      harm.connect(hGain);
+      hGain.connect(musicGain);
+      harm.start();
+      harm.stop(audioCtx.currentTime + 1);
+    }
+    m++;
+  }, 500);
+
+  // Pad de fondo (acorde sostenido)
+  const padNotes = [130.81, 164.81, 196.00];
+  padNotes.forEach((freq, idx)=>{
+    const pad = audioCtx.createOscillator();
+    const padGain = audioCtx.createGain();
+    pad.type = 'sine';
+    pad.frequency.value = freq;
+    padGain.gain.setValueAtTime(0, audioCtx.currentTime);
+    padGain.gain.linearRampToValueAtTime(0.03, audioCtx.currentTime + 2);
+    pad.connect(padGain);
+    padGain.connect(musicGain);
+    pad.start();
+  });
+}
+
+// Iniciar musica con primer click del usuario (bloqueo de autoplay)
+document.addEventListener('click', function startOnce(){
+  startMusic();
+  document.removeEventListener('click', startOnce);
+}, { once: true });
+
+// Boton de mute/unmute
+function toggleMusic(){
+  if(!musicGain) return;
+  if(musicGain.gain.value > 0){
+    musicGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.3);
+    document.getElementById('musicBtn').textContent = '🔇';
+  } else {
+    musicGain.gain.linearRampToValueAtTime(0.15, audioCtx.currentTime + 0.3);
+    document.getElementById('musicBtn').textContent = '🔊';
+  }
+}
+
 </script>
 </body>
 </html>
