@@ -108,6 +108,12 @@ body{background:#0a0a12;color:#fff;min-height:100vh;overflow-x:hidden}
 
 .footer{text-align:center;font-size:11px;color:#333;margin:20px 0 10px}
 .footer .brand{color:#00ff41;opacity:0.5}
+.sens-card.special{background:#0a1a0a;border:2px solid #00ff41;padding:18px 20px;box-shadow:0 0 15px rgba(0,255,65,.15)}
+.sens-card.special .sens-row{flex-direction:column;align-items:center;text-align:center;gap:8px}
+.sens-card.special .sens-row .label{font-size:15px;color:#00ff41;font-weight:600}
+.sens-card.special .sens-row .value{font-size:32px;font-weight:900;color:#00ff41;text-align:center;min-width:auto;text-shadow:0 0 10px rgba(0,255,65,.4)}
+.sens-card.special .bar{height:8px;margin-top:12px}
+.sens-special-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
 </style>
 </head>
 <body>
@@ -482,7 +488,10 @@ function displayResults(brand, model, mode, weapon, sens){
     {key:'dpi',label:'DPI Recomendado',icon:'⚙️'},
     {key:'fireBtn',label:'Botón de Disparo (%)',icon:'🔥'},
   ];
-  grid.innerHTML = '';
+  grid.innerHTML='';
+  var specialGrid=document.createElement('div');
+  specialGrid.className='sens-special-grid';
+  grid.parentNode.insertBefore(specialGrid,grid.nextSibling);
   labels.forEach((l,i)=>{
     const val = sens[l.key];
     const card = document.createElement('div');
@@ -490,7 +499,7 @@ function displayResults(brand, model, mode, weapon, sens){
     const maxVal = l.key==='dpi' ? 800 : (l.key==='fireBtn' ? 120 : 200);
     const pct = Math.round((val/maxVal)*100);
     card.innerHTML = '<div class="sens-row"><div class="label"><span class="icon">'+l.icon+'</span>'+l.label+'</div><div class="value">'+val+'</div></div>';
-    grid.appendChild(card);
+    if(l.key==='dpi'||l.key==='fireBtn'){card.classList.add('special');specialGrid.appendChild(card);}else{grid.appendChild(card);}
     setTimeout(()=>{
       const bar=document.createElement('div');
       bar.className='bar';
