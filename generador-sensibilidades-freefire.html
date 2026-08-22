@@ -119,6 +119,7 @@ body{background:#0a0a12;color:#fff;min-height:100vh;overflow-x:hidden}
       <span class="weapon-tag">Desert Eagle</span>
       <span class="weapon-tag">Escopeta</span>
       <span class="weapon-tag">M1014</span>
+      <span class="weapon-tag">🔥 Freestyle</span>
     </div>
   </div>
 
@@ -133,6 +134,10 @@ body{background:#0a0a12;color:#fff;min-height:100vh;overflow-x:hidden}
     </div>
     <div class="weapon-card" onclick="selectWeapon('todo-rojo','m1014')">
       <div class="w-icon">🔬</div>
+    <div class="weapon-card" onclick="selectWeapon('todo-rojo','freestyle')">
+      <div class="w-icon">🔥</div>
+      <div class="w-info"><h4>FREESTYLE (Todas las armas)</h4><p>Jugadas con todas las armas pegando todo rojo. Sensibilidad calibrada para headshot con cualquier arma.</p></div>
+    </div>
       <div class="w-info"><h4>M1014</h4><p>Auto-escopeta. Calibrada para headshot en cada disparo.</p></div>
     </div>
   </div>
@@ -406,6 +411,7 @@ function calculateSensitivity(brand, model, mode, weapon){
     if(weapon === 'desert'){ base = {general:200,redDot:200,'2x':200,'4x':200,sniper:200,freeLook:200}; }
     else if(weapon === 'escopeta'){ base = {general:200,redDot:200,'2x':200,'4x':200,sniper:200,freeLook:200}; }
     else if(weapon === 'm1014'){ base = {general:200,redDot:200,'2x':200,'4x':200,sniper:200,freeLook:200}; }
+    else if(weapon === 'freestyle'){ base = {general:200,redDot:200,'2x':200,'4x':200,sniper:200,freeLook:200}; }
   } else {
     if(weapon === 'ak47'){ base = {general:165,redDot:160,'2x':155,'4x':148,sniper:140,freeLook:170}; }
     else if(weapon === 'smg'){ base = {general:175,redDot:170,'2x':165,'4x':155,sniper:145,freeLook:180}; }
@@ -427,7 +433,7 @@ function calculateSensitivity(brand, model, mode, weapon){
 function displayResults(brand, model, mode, weapon, sens){
   showScreen('screen4');
   const modeNames = {'todo-rojo': 'TODO ROJO','decla': 'DECLA'};
-  const weaponNames = {'desert':'Desert Eagle','escopeta':'Escopeta','m1014':'M1014','ak47':'AK47 / AR','smg':'SMG / MP5','auto':'Automática'};
+  const weaponNames = {'desert':'Desert Eagle','escopeta':'Escopeta','m1014':'M1014','freestyle':'Freestyle (Todas)','ak47':'AK47 / AR','smg':'SMG / MP5','auto':'Automática'};
   document.getElementById('resultDevice').textContent = brand + ' ' + model;
   document.getElementById('resultMode').textContent = '🎯 ' + modeNames[mode] + ' - ' + weaponNames[weapon];
   const grid = document.getElementById('sensGrid');
@@ -467,6 +473,7 @@ function displayResults(brand, model, mode, weapon, sens){
       'desert': 'Con el Desert Eagle apunta siempre a la altura de la cabeza. Un solo disparo a la cabeza es muerte instantánea. Mantén la mira a la altura del cráneo, no al pecho. Usa la sensibilidad alta para girar rápido hacia la cabeza del enemigo.',
       'escopeta': 'Con la escopeta acércate lo máximo posible. Apunta a la cabeza desde cerca, un tiro y mueren. La sensibilidad alta te ayuda a girar rápido en combates cercanos.',
       'm1014': 'Con la M1014 mantén presionado el botón de disparo apuntando a la cabeza. Cada disparo debe ir al cráneo. Si se mueven, ajusta la mira con la sensibilidad alta hacia la cabeza.',
+      'freestyle': 'Modo Freestyle: jugas con TODAS las armas pegando todo rojo. La sensibilidad está al máximo para que con cualquier arma que agarres vayas directo a la cabeza. Ya sea Desert Eagle, escopeta, AK, SMG o cualquier arma, el headshot está garantizado. Gira rápido, apunta a la cabeza y dispara sin miedo.',
     },
     'decla': {
       'ak47': 'Con la AK47 dispara en ráfagas cortas (3-4 tiros). Mantén la mira a la altura de la cabeza. Si el retroceso sube, baja ligeramente la mira para que no se pase de la cabeza. La sensibilidad está calibrada para que se quede pegada al cráneo.',
