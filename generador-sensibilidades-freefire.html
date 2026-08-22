@@ -78,6 +78,12 @@ body{background:#0a0a12;color:#fff;min-height:100vh;overflow-x:hidden}
 .tip-box{background:#151525;border-left:3px solid #ff4500;padding:14px;border-radius:0 10px 10px 0;margin-bottom:15px}
 .tip-box h4{font-size:13px;color:#ff8c00;margin-bottom:5px}
 .tip-box p{font-size:12px;color:#999;line-height:1.6}
+.skills-box{background:#151525;border-left:3px solid #ff8c00;padding:14px;border-radius:0 10px 10px 0;margin-bottom:15px}
+.skills-box h4{font-size:13px;color:#ff8c00;margin-bottom:8px}
+.skill-item{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:12px;color:#ccc}
+.skill-item .skill-icon{font-size:18px}
+.skill-item .skill-name{color:#fff;font-weight:600}
+.skill-item .skill-desc{color:#888;font-size:11px}
 
 .footer{text-align:center;font-size:11px;color:#444;margin:20px 0 10px}
 </style>
@@ -187,6 +193,10 @@ body{background:#0a0a12;color:#fff;min-height:100vh;overflow-x:hidden}
     <div class="mode-info" id="resultMode"></div>
   </div>
   <div class="sens-grid" id="sensGrid"></div>
+  <div class="skills-box" id="skillsBox" style="display:none">
+    <h4>🧠 HABILIDADES RECOMENDADAS PARA DECLA</h4>
+    <div id="skillsList"></div>
+  </div>
   <div class="tip-box">
     <h4>💡 TIPS PARA USAR ESTA SENSIBILIDAD</h4>
     <p id="resultTips"></p>
@@ -482,6 +492,42 @@ function displayResults(brand, model, mode, weapon, sens){
     }
   };
   document.getElementById('resultTips').textContent = tips[mode][weapon];
+
+  // Mostrar habilidades solo en modo Decla
+  const skillsBox = document.getElementById("skillsBox");
+  const skillsList = document.getElementById("skillsList");
+  if(mode === "decla"){
+    skillsBox.style.display = "block";
+    const DECLA_SKILLS = {
+      "ak47": [
+        {icon:"🛡️",name:"Homer (Escudo)",desc:"Escudo que bloquea daño mientras disparas en ráfaga"},
+        {icon:"⚡",name:"Kelly (Velocidad)",desc:"Corre más rápido para reposicionarse rápido"},
+        {icon:"🎯",name:"Hayato (Armadura)",desc:"Más armadura al tener poca vida, perfecto para rushes"},
+        {icon:"💥",name:"Nikita (Recarga)",desc:"Recarga más rápido para no parar de disparar"},
+        {icon:"🩹",name:"Olivia (Curación)",desc:"Revive con más vida para seguir peleando"}
+      ],
+      "smg": [
+        {icon:"⚡",name:"Kelly (Velocidad)",desc:"Velocidad máxima para moverte rápido mientras disparas"},
+        {icon:"🛡️",name:"Homer (Escudo)",desc:"Escudo protector para aguantar mientras tiras la ráfaga"},
+        {icon:"🔥",name:"Ford (Armadura)",desc:"Reduce el daño de las balas enemigas"},
+        {icon:"💥",name:"Nikita (Recarga)",desc:"Recarga instantánea para no parar de tirar tiros"},
+        {icon:"🏃",name:"Moco (Velocidad recarga)",desc:"Recarga más rápido con SMG para no parar"}
+      ],
+      "auto": [
+        {icon:"🛡️",name:"Homer (Escudo)",desc:"Escudo que te protege mientras disparas automático"},
+        {icon:"⚡",name:"Kelly (Velocidad)",desc:"Velocidad para flanquear y posicionarte mejor"},
+        {icon:"🎯",name:"Hayato (Armadura)",desc:"Más defensa cuando estás bajo fuego enemigo"},
+        {icon:"💥",name:"Nikita (Recarga)",desc:"Recarga más rápido para mantener presión constante"},
+        {icon:"🩹",name:"Olivia (Curación)",desc:"Recupera vida al revivir para seguir en la pelea"}
+      ]
+    };
+    const skills = DECLA_SKILLS[weapon] || DECLA_SKILLS["auto"];
+    skillsList.innerHTML = skills.map(s =>
+      '<div class="skill-item"><span class="skill-icon">'+s.icon+'</span><span class="skill-name">'+s.name+'</span> - <span class="skill-desc">'+s.desc+'</span></div>'
+    ).join('');
+  } else {
+    skillsBox.style.display = "none";
+  }
 }
 
 function reset(){
