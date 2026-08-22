@@ -6,11 +6,13 @@
 <title>🔥 LUXTIN SENCI 2.0 - Generador de Sensibilidades Free Fire</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
-body{background:#0a0a12;color:#fff;min-height:100vh;overflow-x:hidden}
+body{background:linear-gradient(135deg,#0a0a12,#0a1a0a,#0a0a12,#0a0a1a);background-size:400% 400%;color:#fff;min-height:100vh;overflow-x:hidden;animation:bgAura 8s ease infinite}
+@keyframes bgAura{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 #app{max-width:500px;margin:0 auto;min-height:100vh;position:relative}
 
 /* INTRO HACKER */
 #intro{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}
+#intro::after{content:"";position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,transparent,#00ff41,transparent);animation:scanLine 2s linear infinite;z-index:3;box-shadow:0 0 10px #00ff41}
 #intro .matrix{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0.15;font-size:14px;line-height:16px;color:#00ff41;word-break:break-all;overflow:hidden;white-space:pre-wrap;padding:10px}
 #intro .glitch-wrap{position:relative;z-index:2;text-align:center}
 #intro .glitch{font-size:36px;font-weight:900;color:#00ff41;text-shadow:0 0 20px #00ff41;letter-spacing:3px;position:relative;animation:glitch 0.3s infinite}
@@ -27,6 +29,7 @@ body{background:#0a0a12;color:#fff;min-height:100vh;overflow-x:hidden}
 @keyframes loadBar{0%{width:0}30%{width:30%}50%{width:50%}70%{width:70%}90%{width:90%}100%{width:100%}}
 #intro.hide{animation:introOut 0.6s ease forwards}
 @keyframes introOut{to{opacity:0;visibility:hidden;transform:scale(1.1)}}
+@keyframes scanLine{0%{top:0}100%{top:100%}}
 
 .screen{display:none;flex-direction:column;align-items:center;padding:20px;min-height:100vh;animation:fadeIn .4s ease}
 .screen.active{display:flex}
@@ -108,6 +111,27 @@ body{background:#0a0a12;color:#fff;min-height:100vh;overflow-x:hidden}
 
 .footer{text-align:center;font-size:11px;color:#333;margin:20px 0 10px}
 .footer .brand{color:#00ff41;opacity:0.5}
+@keyframes auraPulse{0%,100%{box-shadow:0 0 15px rgba(0,255,65,.2),0 0 30px rgba(0,255,65,.1)}50%{box-shadow:0 0 25px rgba(0,255,65,.4),0 0 50px rgba(0,255,65,.2)}}
+@keyframes textGlow{0%,100%{text-shadow:0 0 10px rgba(0,255,65,.5),0 0 20px rgba(0,255,65,.3)}50%{text-shadow:0 0 20px rgba(0,255,65,.8),0 0 40px rgba(0,255,65,.5)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.sens-card{animation:auraPulse 3s ease infinite}
+.sens-card.special{animation:auraPulse 2s ease infinite}
+.logo h1{animation:textGlow 2s ease infinite}
+.mode-card{animation:float 4s ease infinite}
+#mode-todo-rojo{animation-delay:0s}
+#mode-decla{animation-delay:1s}
+.btn{animation:auraPulse 2.5s ease infinite}
+@keyframes auraPulse{0%,100%{box-shadow:0 0 15px rgba(0,255,65,.2),0 0 30px rgba(0,255,65,.1)}50%{box-shadow:0 0 25px rgba(0,255,65,.4),0 0 50px rgba(0,255,65,.2)}}
+@keyframes auraBorder{0%,100%{border-color:#00ff41;box-shadow:0 0 10px rgba(0,255,65,.3)}50%{border-color:#00ccff;box-shadow:0 0 20px rgba(0,153,255,.3)}}
+@keyframes textGlow{0%,100%{text-shadow:0 0 10px rgba(0,255,65,.5),0 0 20px rgba(0,255,65,.3)}50%{text-shadow:0 0 20px rgba(0,255,65,.8),0 0 40px rgba(0,255,65,.5)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.sens-card{animation:auraPulse 3s ease infinite}
+.sens-card.special{animation:auraPulse 2s ease infinite}
+.logo h1{animation:textGlow 2s ease infinite}
+.mode-card{animation:float 4s ease infinite}
+#mode-todo-rojo{animation-delay:0s}
+#mode-decla{animation-delay:1s}
+.btn{animation:auraPulse 2.5s ease infinite}
 .sens-card.special{background:#0a0a2a;border:2px solid #0099ff;padding:18px 20px;box-shadow:0 0 15px rgba(0,153,255,.2)}
 .sens-card.special .sens-row{flex-direction:column;align-items:center;text-align:center;gap:8px}
 .sens-card.special .sens-row .label{font-size:15px;color:#0099ff;font-weight:600}
@@ -135,6 +159,7 @@ body{background:#0a0a12;color:#fff;min-height:100vh;overflow-x:hidden}
   <div class="logo">
     <h1>🔥 LUXTIN SENCI 2.0</h1>
     <div class="lux">█▓▒░ SENSIBILIDAD PRO ░▒▓█</div>
+  <div style="display:inline-block;background:linear-gradient(135deg,#00ff41,#00ccff);color:#000;font-size:10px;font-weight:900;padding:2px 12px;border-radius:4px;margin-top:5px;letter-spacing:2px;animation:textGlow 1.5s ease infinite">⚡ LUXTIN SENCI 2.0 ⚡</div>
     <div class="sub">Generador calibrado para tu dispositivo</div>
   </div>
   <div class="input-group">
