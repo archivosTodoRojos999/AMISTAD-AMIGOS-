@@ -3,56 +3,77 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🔥 Generador de Sensibilidades Free Fire</title>
+<title>🔥 LUXTIN SENCI 2.0 - Generador de Sensibilidades Free Fire</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
 body{background:#0a0a12;color:#fff;min-height:100vh;overflow-x:hidden}
 #app{max-width:500px;margin:0 auto;min-height:100vh;position:relative}
 
+/* INTRO HACKER */
+#intro{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}
+#intro .matrix{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0.15;font-size:14px;line-height:16px;color:#00ff41;word-break:break-all;overflow:hidden;white-space:pre-wrap;padding:10px}
+#intro .glitch-wrap{position:relative;z-index:2;text-align:center}
+#intro .glitch{font-size:36px;font-weight:900;color:#00ff41;text-shadow:0 0 20px #00ff41;letter-spacing:3px;position:relative;animation:glitch 0.3s infinite}
+#intro .glitch::before,#intro .glitch::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%}
+#intro .glitch::before{color:#ff0040;animation:glitch1 0.3s infinite;clip-path:inset(20% 0 60% 0)}
+#intro .glitch::after{color:#00ffff;animation:glitch2 0.3s infinite;clip-path:inset(60% 0 20% 0)}
+#intro .sub{font-size:14px;color:#00ff41;margin-top:15px;letter-spacing:2px;opacity:0.7}
+#intro .loader-bar{width:200px;height:3px;background:#1a1a2e;margin-top:25px;overflow:hidden;border-radius:2px}
+#intro .loader-fill{height:100%;width:0;background:#00ff41;animation:loadBar 2.5s ease forwards;box-shadow:0 0 10px #00ff41}
+#intro .load-text{font-size:11px;color:#00ff41;margin-top:10px;opacity:0.5;font-family:monospace}
+@keyframes glitch{0%{transform:translate(0)}20%{transform:translate(-2px,2px)}40%{transform:translate(2px,-2px)}60%{transform:translate(-1px,1px)}80%{transform:translate(1px,-1px)}100%{transform:translate(0)}}
+@keyframes glitch1{0%{transform:translate(0)}20%{transform:translate(-3px,0)}40%{transform:translate(3px,0)}60%{transform:translate(-2px,0)}80%{transform:translate(2px,0)}100%{transform:translate(0)}}
+@keyframes glitch2{0%{transform:translate(0)}20%{transform:translate(3px,0)}40%{transform:translate(-3px,0)}60%{transform:translate(2px,0)}80%{transform:translate(-2px,0)}100%{transform:translate(0)}}
+@keyframes loadBar{0%{width:0}30%{width:30%}50%{width:50%}70%{width:70%}90%{width:90%}100%{width:100%}}
+#intro.hide{animation:introOut 0.6s ease forwards}
+@keyframes introOut{to{opacity:0;visibility:hidden;transform:scale(1.1)}}
+
 .screen{display:none;flex-direction:column;align-items:center;padding:20px;min-height:100vh;animation:fadeIn .4s ease}
 .screen.active{display:flex}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
-.logo{text-align:center;margin:30px 0 20px}
-.logo h1{font-size:28px;background:linear-gradient(135deg,#ff4500,#ff8c00,#ffd700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 30px rgba(255,69,0,.3);letter-spacing:1px}
-.logo .sub{font-size:13px;color:#888;margin-top:5px}
+.logo{text-align:center;margin:25px 0 20px}
+.logo h1{font-size:30px;background:linear-gradient(135deg,#00ff41,#00cc33,#00ff41);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 30px rgba(0,255,65,.3);letter-spacing:2px}
+.logo .lux{font-size:14px;color:#00ff41;letter-spacing:4px;margin-top:3px;opacity:0.6}
+.logo .sub{font-size:13px;color:#888;margin-top:8px}
 
 .input-group{width:100%;margin-bottom:15px}
-.input-group label{display:block;font-size:13px;color:#ff8c00;margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:1px}
+.input-group label{display:block;font-size:13px;color:#00ff41;margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:1px}
 .input-group input,.input-group select{
-  width:100%;padding:14px 16px;background:#1a1a2e;border:2px solid #2a2a4e;border-radius:10px;
+  width:100%;padding:14px 16px;background:#0d0d1a;border:2px solid #1a3a1a;border-radius:10px;
   color:#fff;font-size:15px;outline:none;transition:border .3s}
-.input-group input:focus,.input-group select:focus{border-color:#ff8c00}
-.input-group input::placeholder{color:#555}
+.input-group input:focus,.input-group select:focus{border-color:#00ff41;box-shadow:0 0 10px rgba(0,255,65,.2)}
+.input-group input::placeholder{color:#444}
 
-.btn{width:100%;padding:16px;background:linear-gradient(135deg,#ff4500,#ff8c00);border:none;border-radius:12px;
-  color:#fff;font-size:16px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:1px;
+.btn{width:100%;padding:16px;background:linear-gradient(135deg,#00cc33,#00ff41);border:none;border-radius:12px;
+  color:#000;font-size:16px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:1px;
   transition:transform .2s,box-shadow .3s;margin-top:10px}
-.btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(255,69,0,.4)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,255,65,.4)}
 .btn:active{transform:translateY(0)}
 
-.mode-card{width:100%;background:#1a1a2e;border:2px solid #2a2a4e;border-radius:14px;padding:18px;margin-bottom:12px;cursor:pointer;transition:all .3s}
-.mode-card:hover{border-color:#ff8c00;transform:translateY(-3px)}
-.mode-card.selected{border-color:#ff4500;background:#221;box-shadow:0 0 20px rgba(255,69,0,.2)}
+/* FIX: Mode cards con mejor espaciado */
+.mode-card{width:100%;background:#0d0d1a;border:2px solid #1a3a1a;border-radius:14px;padding:18px;margin-bottom:16px;cursor:pointer;transition:all .3s}
+.mode-card:hover{border-color:#00ff41;transform:translateY(-3px)}
+.mode-card.selected{border-color:#00ff41;background:#0a1a0a;box-shadow:0 0 20px rgba(0,255,65,.15)}
 .mode-card .icon{font-size:32px;margin-bottom:8px}
-.mode-card h3{font-size:16px;color:#ff8c00;margin-bottom:5px}
-.mode-card p{font-size:12px;color:#999;line-height:1.5}
+.mode-card h3{font-size:16px;color:#00ff41;margin-bottom:5px}
+.mode-card p{font-size:12px;color:#888;line-height:1.5}
 .mode-card .weapons{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap}
-.mode-card .weapon-tag{background:#2a1a3e;padding:4px 10px;border-radius:6px;font-size:11px;color:#c8a8ff;border:1px solid #3a2a5e}
+.mode-card .weapon-tag{background:#0a2a0a;padding:4px 10px;border-radius:6px;font-size:11px;color:#00ff41;border:1px solid #1a3a1a}
 
-.sub-mode{display:none;width:100%;margin-top:5px}
+.sub-mode{display:none;width:100%;margin-top:8px;margin-bottom:8px}
 .sub-mode.active{display:block;animation:fadeIn .3s}
-.sub-mode .weapon-card{background:#151525;border:1px solid #333;padding:12px 16px;border-radius:10px;margin-bottom:8px;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:12px}
-.sub-mode .weapon-card:hover{border-color:#ff8c00;background:#1f1f35}
-.sub-mode .weapon-card.selected{border-color:#ff4500;background:#221}
+.sub-mode .weapon-card{background:#080815;border:1px solid #1a2a1a;padding:12px 16px;border-radius:10px;margin-bottom:10px;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:12px}
+.sub-mode .weapon-card:hover{border-color:#00ff41;background:#0a1a0a}
+.sub-mode .weapon-card.selected{border-color:#00ff41;background:#0a1a0a}
 .sub-mode .weapon-card .w-icon{font-size:28px}
 .sub-mode .weapon-card .w-info h4{font-size:14px;color:#fff}
 .sub-mode .weapon-card .w-info p{font-size:11px;color:#888;margin-top:2px}
 
 .loading-screen{justify-content:center}
-.spinner{width:80px;height:80px;border:5px solid #1a1a2e;border-top:5px solid #ff4500;border-right:5px solid #ff8c00;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:25px}
+.spinner{width:80px;height:80px;border:5px solid #0d0d1a;border-top:5px solid #00ff41;border-right:5px solid #00cc33;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:25px}
 @keyframes spin{to{transform:rotate(360deg)}}
-.loading-text{font-size:16px;color:#ff8c00;text-align:center}
+.loading-text{font-size:16px;color:#00ff41;text-align:center}
 .loading-text .dots{animation:dots 1.5s infinite}
 @keyframes dots{0%,20%{opacity:0}50%{opacity:1}100%{opacity:0}}
 .loading-device{text-align:center;margin-top:15px;color:#666;font-size:13px}
@@ -60,41 +81,54 @@ body{background:#0a0a12;color:#fff;min-height:100vh;overflow-x:hidden}
 .results-screen{padding:20px}
 .result-header{text-align:center;margin-bottom:20px}
 .result-header .check{font-size:50px;margin-bottom:10px}
-.result-header h2{font-size:20px;color:#ff8c00}
+.result-header h2{font-size:20px;color:#00ff41}
 .result-header .device-info{font-size:13px;color:#888;margin-top:5px}
-.result-header .mode-info{font-size:12px;color:#ff8c00;margin-top:3px;font-weight:600}
+.result-header .mode-info{font-size:12px;color:#00ff41;margin-top:3px;font-weight:600}
 
-/* FIX: Sensitivity cards with proper alignment */
 .sens-grid{width:100%;display:grid;gap:10px;margin-bottom:20px}
-.sens-card{background:#1a1a2e;border:1px solid #2a2a4e;border-radius:10px;padding:14px 16px;transition:transform .2s}
+.sens-card{background:#0d0d1a;border:1px solid #1a3a1a;border-radius:10px;padding:14px 16px;transition:transform .2s}
 .sens-card:hover{transform:scale(1.02)}
 .sens-row{display:flex;justify-content:space-between;align-items:center;width:100%}
 .sens-row .label{font-size:13px;color:#aaa;display:flex;align-items:center;gap:6px}
 .sens-row .label .icon{font-size:18px;line-height:1}
-.sens-row .value{font-size:22px;font-weight:700;color:#ff8c00;text-align:right;min-width:60px}
-.sens-card .bar{width:100%;height:6px;background:#2a2a3e;border-radius:3px;margin-top:10px;overflow:hidden}
-.sens-card .bar-fill{height:100%;background:linear-gradient(90deg,#ff4500,#ff8c00,#ffd700);border-radius:3px;transition:width 1s ease}
+.sens-row .value{font-size:22px;font-weight:700;color:#00ff41;text-align:right;min-width:60px}
+.sens-card .bar{width:100%;height:6px;background:#1a2a1a;border-radius:3px;margin-top:10px;overflow:hidden}
+.sens-card .bar-fill{height:100%;background:linear-gradient(90deg,#00cc33,#00ff41,#00ffff);border-radius:3px;transition:width 1s ease}
 
-.tip-box{background:#151525;border-left:3px solid #ff4500;padding:14px;border-radius:0 10px 10px 0;margin-bottom:15px}
-.tip-box h4{font-size:13px;color:#ff8c00;margin-bottom:5px}
-.tip-box p{font-size:12px;color:#999;line-height:1.6}
-.skills-box{background:#151525;border-left:3px solid #ff8c00;padding:14px;border-radius:0 10px 10px 0;margin-bottom:15px}
-.skills-box h4{font-size:13px;color:#ff8c00;margin-bottom:8px}
+.skills-box{background:#080815;border-left:3px solid #00ff41;padding:14px;border-radius:0 10px 10px 0;margin-bottom:15px}
+.skills-box h4{font-size:13px;color:#00ff41;margin-bottom:8px}
 .skill-item{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:12px;color:#ccc}
 .skill-item .skill-icon{font-size:18px}
 .skill-item .skill-name{color:#fff;font-weight:600}
 .skill-item .skill-desc{color:#888;font-size:11px}
 
-.footer{text-align:center;font-size:11px;color:#444;margin:20px 0 10px}
+.tip-box{background:#080815;border-left:3px solid #00ff41;padding:14px;border-radius:0 10px 10px 0;margin-bottom:15px}
+.tip-box h4{font-size:13px;color:#00ff41;margin-bottom:5px}
+.tip-box p{font-size:12px;color:#999;line-height:1.6}
+
+.footer{text-align:center;font-size:11px;color:#333;margin:20px 0 10px}
+.footer .brand{color:#00ff41;opacity:0.5}
 </style>
 </head>
 <body>
+
+<!-- INTRO HACKER -->
+<div id="intro">
+  <div class="matrix" id="matrix"></div>
+  <div class="glitch-wrap">
+    <div class="glitch" data-text="LUXTIN SENCI 2.0">LUXTIN SENCI 2.0</div>
+    <div class="sub">// FREE FIRE SENSIBILITY GENERATOR</div>
+    <div class="loader-bar"><div class="loader-fill"></div></div>
+    <div class="load-text" id="loadText">> inicializando sistema...</div>
+  </div>
+</div>
+
 <div id="app">
 
 <div class="screen active" id="screen1">
   <div class="logo">
-    <h1>🔥 FREE FIRE</h1>
-    <h1 style="font-size:20px">SENSIBILIDAD PRO</h1>
+    <h1>🔥 LUXTIN SENCI 2.0</h1>
+    <div class="lux">█▓▒░ SENSIBILIDAD PRO ░▒▓█</div>
     <div class="sub">Generador calibrado para tu dispositivo</div>
   </div>
   <div class="input-group">
@@ -108,7 +142,7 @@ body{background:#0a0a12;color:#fff;min-height:100vh;overflow-x:hidden}
     <datalist id="modelList"></datalist>
   </div>
   <button class="btn" onclick="goToScreen2()">CONTINUAR ➜</button>
-  <div class="footer">Generador de sensibilidades Free Fire | Todo Rojo + Decla</div>
+  <div class="footer"><span class="brand">LUXTIN SENCI 2.0</span> | Free Fire Sensibility</div>
 </div>
 
 <div class="screen" id="screen2">
@@ -140,11 +174,11 @@ body{background:#0a0a12;color:#fff;min-height:100vh;overflow-x:hidden}
     </div>
     <div class="weapon-card" onclick="selectWeapon('todo-rojo','m1014')">
       <div class="w-icon">🔬</div>
+      <div class="w-info"><h4>M1014</h4><p>Auto-escopeta. Calibrada para headshot en cada disparo.</p></div>
+    </div>
     <div class="weapon-card" onclick="selectWeapon('todo-rojo','freestyle')">
       <div class="w-icon">🔥</div>
       <div class="w-info"><h4>FREESTYLE (Todas las armas)</h4><p>Jugadas con todas las armas pegando todo rojo. Sensibilidad calibrada para headshot con cualquier arma.</p></div>
-    </div>
-      <div class="w-info"><h4>M1014</h4><p>Auto-escopeta. Calibrada para headshot en cada disparo.</p></div>
     </div>
   </div>
 
@@ -202,12 +236,43 @@ body{background:#0a0a12;color:#fff;min-height:100vh;overflow-x:hidden}
     <p id="resultTips"></p>
   </div>
   <button class="btn" onclick="reset()">🔄 GENERAR OTRA SENSIBILIDAD</button>
-  <div class="footer">Generador de sensibilidades Free Fire Pro</div>
+  <div class="footer"><span class="brand">LUXTIN SENCI 2.0</span> | Free Fire Pro</div>
 </div>
 
 </div>
 
 <script>
+// === INTRO HACKER ===
+(function(){
+  const matrix=document.getElementById('matrix');
+  const chars='01アカサタナハマヤラワABCDEFGHIJKLMNOPQRSTUVWXYZ#@$%&*+-=/<>{}[]';
+  let lines=[];
+  for(let i=0;i<50;i++){
+    let line='';
+    for(let j=0;j<60;j++) line+=chars[Math.floor(Math.random()*chars.length)];
+    lines.push(line);
+  }
+  let row=0;
+  const interval=setInterval(()=>{
+    matrix.textContent=lines.slice(Math.max(0,row-30),row+1).join('\n');
+    row++;
+    if(row>60){clearInterval(interval);matrix.textContent=lines.join('\n');}
+  },80);
+
+  const loadTexts=['> inicializando sistema...','> cargando base de datos...','> calibrando algoritmos...','> conectando servidor...','> LUXTIN SENCI 2.0 listo ✅'];
+  let lt=0;
+  const ltInterval=setInterval(()=>{
+    if(lt<loadTexts.length){document.getElementById('loadText').textContent=loadTexts[lt];lt++;}
+    else clearInterval(ltInterval);
+  },500);
+
+  setTimeout(()=>{
+    const intro=document.getElementById('intro');
+    intro.classList.add('hide');
+    setTimeout(()=>{intro.style.display='none';},600);
+  },3000);
+})();
+
 const DEVICE_DB = {
   "Samsung": ["Galaxy S24 Ultra","Galaxy S24+","Galaxy S24","Galaxy S23 Ultra","Galaxy S23+","Galaxy S23","Galaxy S22 Ultra","Galaxy S22+","Galaxy S22","Galaxy S21 Ultra","Galaxy S21+","Galaxy S21","Galaxy S20 Ultra","Galaxy S20+","Galaxy S20","Galaxy S10+","Galaxy S10","Galaxy S9+","Galaxy S9","Galaxy Note 20 Ultra","Galaxy Note 20","Galaxy Note 10+","Galaxy Note 10","Galaxy Note 9","Galaxy A73","Galaxy A72","Galaxy A71","Galaxy A70","Galaxy A55","Galaxy A54","Galaxy A53","Galaxy A52","Galaxy A51","Galaxy A50","Galaxy A35","Galaxy A34","Galaxy A33","Galaxy A32","Galaxy A25","Galaxy A24","Galaxy A23","Galaxy A22","Galaxy A14","Galaxy A13","Galaxy A12","Galaxy A11","Galaxy A10","Galaxy M53","Galaxy M33","Galaxy M23","Galaxy M13","Galaxy M11","Galaxy M01","Galaxy F54","Galaxy F23","Galaxy F13","Galaxy Z Fold5","Galaxy Z Flip5","Galaxy Z Fold4","Galaxy Z Flip4","Galaxy Z Fold3","Galaxy Z Flip3","Galaxy Tab S8","Galaxy Tab A8","Galaxy Tab A7"],
   "Xiaomi": ["Redmi Note 13 Pro","Redmi Note 13","Redmi Note 12 Pro","Redmi Note 12","Redmi Note 11 Pro","Redmi Note 11","Redmi Note 10 Pro","Redmi Note 10","Redmi Note 9 Pro","Redmi Note 9","Redmi Note 8 Pro","Redmi Note 8","Redmi Note 7","Redmi 13C","Redmi 12C","Redmi 10A","Redmi 9A","Redmi 8A","Redmi 7A","Redmi 13","Redmi 12","Redmi 10","Redmi 9","Redmi 8","Redmi 7","Xiaomi 14 Pro","Xiaomi 14","Xiaomi 13 Pro","Xiaomi 13","Xiaomi 12 Pro","Xiaomi 12","Xiaomi 11 Pro","Xiaomi 11","Xiaomi 10","Poco X6 Pro","Poco X6","Poco X5 Pro","Poco X5","Poco X4","Poco X3","Poco F5","Poco F4","Poco F3","Poco M6 Pro","Poco M6","Poco M5s","Poco M5","Poco M4 Pro","Poco M3","Poco C65","Poco C55","Poco C50"],
@@ -257,48 +322,8 @@ const DEVICE_DB = {
   "Meizu": ["21 Pro","21","20 Pro","20","19","18 Pro","18","17 Pro","17","16 Pro","16","16th","16T","16X","16S Pro","16S","15 Plus","15","Note 9","Note 8","Note 7","Note 6","X8","V10","M10","M8"],
   "Sharp": ["Aquos R8","Aquos R7","Aquos R6","Aquos R5G","Aquos Zero 5G","Aquos Zero","Aquos Sense 7","Aquos Sense 6","Aquos Sense 5","Aquos Wish 3","Aquos Wish 2","Aquos Wish","Aquos V","Aquos S3","Aquos S2"],
   "Fairphone": ["Fairphone 5","Fairphone 4","Fairphone 3","Fairphone 3+","Fairphone 2"],
-  "Vodafone": ["Smart Ultra 7","Smart Ultra 6","Smart Turbo 7","Smart Turbo 6","Smart N8","Smart E8","Smart Mini","Smart First 7","Smart Prime 7","Smart 4","Smart Tab","Smart X","Y82","Y60","Y50","Y30"],
-  "Archos": ["Diamond Gamma","Diamond Omega","Diamond S","Diamond 2 Plus","Helium 60","Helium 55","Helium 50","Power 60","Power 55","Sense 55X","Sense 50X","Access 50","Access 45","Access Max","Core 55","Core 50","Core 60","B50","B55","Access 5G"],
-  "Maxwest": ["Astro 5","Astro 5N","Astro 6","Astro 6R","Astro X4","Nitro 5","Nitro 55R","Nitro 5Q","Virtue Z5","Virtue 5","Gravity 5","Gravity 55","A3","A5","A6","L700","L550"],
-  "Karbonn": ["A40 Indian","A9 Indian","K9 Smart","K9 Smart Grand","K9 Smart Selfie","K9 Kavach","Titanium S201","Titanium S205","Titanium Mach Two","Titanium Octane","Aura Note 2","Aura Note Play","Aura Sleek","Sparkle V","Sparkle Spin","K9 Smart Eco"],
-  "Jio": ["JioPhone Next","JioPhone Prima","JioPhone Prima 2","JioPhone","JioPhone 2","JioBharat B1","JioBharat K1","JioBharat V1","JioBharat V2","JioBharat V3","JioPhone Next 2","JioBook","LYF Flame","LYF Water","LYF Wind","LYF Earth"],
-  "Intex": ["Aqua 5.5VR","Aqua S9","Aqua Trend","Aqua Power IV","Aqua Lions 3","Aqua Lions 4G","Aqua Amaze+","Aqua Star 2","Aqua Power HD","Aqua Power M4","Aqua S4","Aqua GenX","Aqua Octa A41","Aqua Secure","Cloud 4G Star","Cloud Zest","Cloud Breeze","Elyt E7","Aqua Ace","Aqua S7","Aqua Lions 5"],
-  "Kindle": ["Kindle Fire","Kindle Fire HD","Kindle Fire HDX","Fire HD 8","Fire HD 10","Fire 7","Fire HD 6","Fire Phone","Fire HD 8 Plus","Fire HD 8 Kids","Fire HD 10 Kids"],
-  "Nvidia": ["Shield Tablet","Shield Portable","Shield TV","Shield K1","Project Shield"],
   "Razer": ["Phone 2","Phone","Edge","Kishi","Junglecat","Hammerhead","Nabu"],
   "Essential": ["Phone PH-1","PH-1","PH2","Essential Phone"],
-  "Nextbit": ["Robin"],
-  "Wileyfox": ["Swift 2X","Swift 2 Plus","Swift 2","Spark","Spark Plus","Storm","Bolt","Pro"],
-  "Yota": ["YotaPhone 2","YotaPhone","YotaPhone 3","YotaPhone 2+","YOTAPhone C"],
-  "Elephone": ["S8","P8","P8 Mini","P8 Pro","P9000","P7000","P6000","P5000","P4000","P3000S","P8000","Vowney","Trunk","Soldier","Life","G2","G3","G4","G5","S1","S2","S3","S7","U","U Pro","U2","U5","A4","A4 Pro","A5","A6","A6L","A6 Mini","A7","A8","A9","A9 Pro","A10","A10 Pro","C1","C1 Max","C1 Mini","C1 X","C1 SE","C1 Pro"],
-  "Umidigi": ["A11","A11 Pro","A11 Pro Max","A13","A13 Pro","A15","A7","A7 Pro","A9","A9 Pro","A5 Pro","A3S","BISON Pro","BISON GT","BISON X10G","C2","F1","F1 Play","F2","F3","F3 5G","F3 SE","G1000","Power 3","Power 5","Power 7","S5 Pro","X1","X2"],
-  "Haier": ["L7","L8","L56","L55","L54","L53","L52","L51","L50","I50","I55","I56","I57","I58","I60","I60s","I6 Plus","G22","G30","G55","V1000"],
-  "Mobiistar": ["X1 Notch","X1 Dual","Zumbo S201","Zumbo S202","Prime X1","Prime X2","Prime X3","Lai Y1","Lai Y2","Lai Z1","Lai Z2","Touch E1","Touch X1","Touch X2","Kem S1","Kem S2","Prime R1","Prime R2","Lai V1","Lai V2","C2","C2 Plus","C2 Lite"],
-  "Prestigio": ["Muze A5","Muze A3","Muze C3","Muze C5","Muze E5","Muze G5","Muze J5","Muze L5","Muze N5","Muze P5","Muze X5","Muze X3","Grace","Grace X","MultiPad","MultiPhone","Geo"],
-  "Doro": ["8100","8080","8050","7070","7060","7050","6820","6880","6050","5855","Liberto 820","Liberto 825","Liberto 830"],
-  "Condor": ["Allure A55","Allure A55 Plus","Allure A55 Lite","Allure A8","Allure A8 Plus","Allure A8 Pro","Allure A100","Allure A100 Plus","Allure M1","Allure M1 Plus","Allure M2","Allure M2 Plus","Allure M3","Allure X","Plume L1","Plume L2","Plume L3","Plume L4","Plume L5","Plume L6","Plume L7","Plume L8","Plume L8 Pro"],
-  "Chuwi": ["Hi10 Pro","Hi10 Plus","Hi12","Hi13","HiPad","HiPad X","HiPad Pro","HiBook","HiBook Pro","SurBook","SurBook Mini","V99","VX8","V89","Hi8","Hi8 Pro","Hi8 SE"],
-  "Teclast": ["T30","T40","T50","P30","P20HD","P25","M40","M50","F7","T8","T10","P10S","P20","P30S","M40 Pro","T40 Pro","P20 Pro","P30 Pro","P40 Pro","T40HD"],
-  "Onda": ["oBook 20 Plus","oBook 11","oBook 12","V10 Pro","V11","V820w","V891","V116","V919","V80","V70","V60","V50","V40","V30","V20","V10","V10 Pro","V116 Pro","V919 3G","V919 Air","V891w"],
-  "Cube": ["iWork 10","iWork 8","iWork 12","iWork 7","iPlay 10","iPlay 8","iPlay 9","iPlay 10 Pro","iPlay 8 Pro","iWork 10 Pro","iWork 12 Pro","iWork 20","iWork 5","iPlay 20"],
-  "Vorago": ["Omega","L490","L520","L510","L510G","L500","L450","L410","L900","N600","N610","N620","N630","N640","N650","N660","N670","N680","N690","N700","N710","N720","N730","N740","N750","N760","N770","N780","N790","N800"],
-  "iVooMi": ["i1","i1s","i2","i3","i3s","i4","i4s","i5","i5s","i5e","V5","V5E","Mee 3","Mee 4","Mee 5","Mee 5s","Innelo","Innelo 1","Innelo 2","Innelo 3","Z1","Z1 Lite","Z1 Pro","Me 1","Me 1S","Me 3","Me 3S","Me 4"],
-  "Lyf": ["F1","F1S","F8","Flame 8","Flame 7S","Flame 7","Flame 6","Flame 5","Flame 4","Flame 3","Flame 2","Flame 1","Water 8","Water 7S","Water 7","Water 6","Water 5","Water 4","Wind 7S","Wind 7","Wind 6S","Wind 6","Wind 5","Wind 4","Earth 2","Earth 1"],
-  "Swipe": ["Elite","Elite Sense","Elite Plus","Elite Power","Elite Star","Konnect 4G","Konnect Plus 4G","Konnect Power","Konnect Star","Ace Strike","Ace Strike 4G","Vox 4G","Vox Plus","Vox V2","Vox Pro"],
-  "XOLO": ["Q1000s Plus","Q1200","Q1010i","Q2000","Q2100","Q3000","Q500","Q520s","Q600s","Q700s","Q800X","Q900s","Omega 2.0","Omega 3.0","Omega 5.0","Omega 5.5","Omega 8.0","X1000","X900","X8","X10","A500S IPS","A550","A600","A700"],
-  "Videocon": ["A55","A55HD","A57","A15","A24","A31","A45","D54","D51","D50","Infinium Z40","Infinium Z50","Infinium Z51","Infinium Z55","Infinium Z60","Infinium Z61","Infinium Z71"],
-  "Spice": ["F301","F305","F311","Stellar 440","Stellar 520N","Mi-525","Mi-535","Mi-550","Mi-720","Xlife 425","Xlife 512","Xlife 514","Xlife 401","Xlife 350","Xlife 512Q"],
-  "Celkon": ["Millennia Vogue","Millennia Eagle","Millennia Q5","Diamond 4G","Diamond U","Celkon UniQ","Celkon Smart Pro","Celkon A107","Celkon A118","Celkon A19","Celkon A20","Celkon A21","Celkon A22","Celkon A23","Celkon A27","Celkon A85","Celkon A89","Celkon A97","Celkon A101","Celkon A105"],
-  "Sansui": ["Horizon H1","Horizon 2S","S204","S404","S504","S501","S102","S104","S204L","SA41","SA42","SA43","SA44","S243","S263","SA74","SA75","SA76"],
-  "MarQ by Flipkart": ["A3","A5","A6","A7","S6","Q6","P41","P54","P55","Q7","Q8","A8","A9","A10","A11","Byqi","Infiniti","Desire","Optima"],
-  "HMD": ["Skyline","Pulse","Pulse Pro","Vibe","Legend","N91","N92","N93","N94","N95","N96","N97","N98","N99","N100"],
-  "General Mobile": ["GM 22","GM 22 Pro","GM 21","GM 21 Pro","GM 20","GM 20 Pro","GM 9 Pro","GM 9 Plus","GM 8","GM 8 Go","GM 6","GM 5 Plus","GM 5","GM 4","GM 3","E-Tab 5","E-Tab 4"],
-  "Vsmart": ["Aris Pro","Aris","Joy 3","Joy 1","Star 4","Active 1","Live","Lux"],
-  "Smartron": ["Tphone 2","Tphone","SRT.Phone","rtm.300","rtm.400"],
-  "Yezz": ["Andy A5","Andy A4","Andy A3","Liv 1","Liv 2","Liv 3","Liv 4","Liv 5 Plus","Liv 5","C24","C25","C27","LIV V1","V2","Z2 Pro","Z5 Pro","Z6","L552","L553","L554"],
-  "Multi-laser": ["H4","H5","G8","G9","G9 Pro","F1","F2","MS50","MS50X","MS45","MS45S","MS40","MS60","MS80","M10","M7","M7S","M10s","X80","X50"],
-  "NGM": ["Forward Art","Forward Shake","Forward Next","Forward X5","Forward 5.5","Forward Endeavor","Forward Endurance","Dynamic Racing 1","Dynamic Racing 2","Dynamic Max","Legend","Legend XL","Legend 2","Explorer","Extreme","WeRun","Atlas","Atlas Pro"],
-  "Owwo": ["S1","S1 Pro","S1 Max","S1 Plus","S2","S2 Pro","S2 Plus","S3","S3 Pro","S3 Plus","S4","S4 Pro","S5","S5 Pro","S5 Plus","S6","S6 Pro","S6 Plus","S7","S7 Pro","S8","S8 Pro","S9","S9 Pro"],
 };
 
 const BRAND_SPECS = {
@@ -464,7 +489,6 @@ function displayResults(brand, model, mode, weapon, sens){
     card.className = 'sens-card';
     const maxVal = l.key==='dpi' ? 800 : (l.key==='fireBtn' ? 120 : 200);
     const pct = Math.round((val/maxVal)*100);
-    // FIX: Row with label left and number right, then bar below
     card.innerHTML = '<div class="sens-row"><div class="label"><span class="icon">'+l.icon+'</span>'+l.label+'</div><div class="value">'+val+'</div></div>';
     grid.appendChild(card);
     setTimeout(()=>{
